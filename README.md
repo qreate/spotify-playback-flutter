@@ -4,7 +4,25 @@ Spotify Playback Plugin.
 
 ## Getting Started
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+## Features
+* Play track/album/playlist
+* Play/pause
+* Stop
 
-For help on editing plugin code, view the [documentation](https://flutter.io/developing-packages/#edit-plugin-package).
+## Installation
+
+First, add `spotify_playback` as a dependency in your `pubspec.yaml` file.
+
+## Example
+
+See the [example documentation](example/README.md) for more information.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
+## Contributing
+
+Feel free to contribute by opening issues and/or pull requests. Your feedback is very welcome!
+
+## License

@@ -34,7 +34,19 @@ class SpotifyPlayback {
     return position;
   }
 
-  static Stream _enableTimer() {
-    return _status_channel.receiveBroadcastStream("playbackPosition");
+  static Future<bool> isConnected() async {
+    final bool connected = await _channel.invokeMethod("isConnected");
+    return connected;
+  }
+
+  static Future<String> getCurrentlyPlayingTrack() async {
+    final String track =
+        await _channel.invokeMethod("getCurrentlyPlayingTrack");
+    return track;
+  }
+
+  static Stream enableTimer() {
+    return _status_channel.receiveBroadcastStream(
+        {"clientId": "clientId", "redirectUrl": "redirectUrl"});
   }
 }

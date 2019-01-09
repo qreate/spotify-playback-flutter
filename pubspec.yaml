@@ -1,8 +1,8 @@
 name: spotify_playback
 description: Spotify Playback Plugin.
 version: 0.0.1
-author:
-homepage:
+author: Joran Dob <joran998@gmail.com>
+homepage: https://github.com/Joran-Dob/spotify-playback-flutter
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"

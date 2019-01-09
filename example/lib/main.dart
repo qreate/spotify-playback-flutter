@@ -22,7 +22,9 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initConnector() async {
     try {
-      await SpotifyPlayback.spotifyConnect("", "").then((connected) {
+      await SpotifyPlayback.spotifyConnect(
+              "0bf5d4f747074014853346a374007765", "feesie://auth")
+          .then((connected) {
         if (!mounted) return;
 
         setState(() {
@@ -86,6 +88,29 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<void> getCurrentlyPlayingTrack() async {
+    try {
+      SpotifyPlayback.getCurrentlyPlayingTrack().then((track) {
+        print("track:\n$track");
+      });
+    } on PlatformException {
+      print('Failed to resume.');
+    }
+  }
+
+  Future<void> monitorPlaybackPosition() async {
+    try {
+      print("Enable timer");
+      SpotifyPlayback.enableTimer().listen((val) {
+        print("track:\n$val");
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to resume.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -112,6 +137,10 @@ class _MyAppState extends State<MyApp> {
           new RaisedButton(
             onPressed: () => getPlaybackPosition(),
             child: Text("position"),
+          ),
+          new RaisedButton(
+            onPressed: () => monitorPlaybackPosition(),
+            child: Text("monitorPlaybackPosition"),
           ),
         ]),
       ),

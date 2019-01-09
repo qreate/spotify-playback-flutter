@@ -6,15 +6,16 @@ import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.types.Track
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.PluginRegistry
-import io.flutter.plugin.common.PluginRegistry.Registrar
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.EventChannel.StreamHandler
+import io.flutter.plugin.common.MethodCall
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler
+import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.PluginRegistry
+import io.flutter.plugin.common.PluginRegistry.Registrar
+import kotlin.concurrent.fixedRateTimer
 
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
     StreamHandler {
@@ -45,20 +46,61 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       resume(result)
     } else if (call.method == ("playbackPositionSpotify")) {
       getPlaybackPosition(result)
+    } else if (call.method == "isConnected") {
+      connected(result)
+    } else if (call.method == "getCurrentlyPlayingTrack") {
+      getCurrentlyPlayingTrack(result)
     }
   }
 
   override fun onListen(
-    p0: Any?,
+    arguments: Any,
     eventSink: EventSink
   ) {
-    onPlaybackPosition(eventSink)
+    val clientId = "0bf5d4f747074014853346a374007765"
+    val redirectUrl = "feesie://auth"
+
+    if (mSpotifyAppRemote != null) {
+      mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
+          .setEventCallback { playerState: PlayerState? ->
+            val track: Track = playerState!!.track
+            val position = playerState.playbackPosition
+            eventSink.success(position)
+          }
+    } else {
+      val connectionParams = ConnectionParams.Builder(clientId)
+          .setRedirectUri(redirectUrl)
+          .showAuthView(true)
+          .build()
+
+      SpotifyAppRemote.CONNECTOR.connect(registrar.context(), connectionParams,
+          object : Connector.ConnectionListener {
+            override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
+              mSpotifyAppRemote = spotifyAppRemote
+              fixedRateTimer("default", false, 0L, 1000) {
+
+                spotifyAppRemote.playerApi.subscribeToPlayerState()
+                    .setEventCallback { playerState: PlayerState? ->
+                      val track: Track = playerState!!.track
+                      val trackDuration = track.duration
+                      if (trackDuration > playerState.playbackPosition) {
+                        eventSink.success(playerState.playbackPosition)
+                      }
+                    }
+              }
+            }
+
+            override fun onFailure(throwable: Throwable) {
+              // Something went wrong when attempting to connect! Handle errors here
+              eventSink.error("connect", "error", throwable)
+            }
+          })
+    }
+
   }
 
   override fun onCancel(p0: Any?) {
-    TODO(
-        "not implemented"
-    ) //To change body of created functions use File | Settings | File Templates.
+
   }
 
   fun spotifyConnect(
@@ -100,7 +142,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
             result.success(true)
           }
     } else {
-      result.error("play", "error", "no SpotifyAppRemote")
+      result.error("play", "error", "no SpotifyAppRemote $spotifyUrl")
     }
   }
 
@@ -138,25 +180,47 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
-  private fun connected() {
-    // Then we will write some more code here.
-    mSpotifyAppRemote!!.playerApi
-        .subscribeToPlayerState()
-        .setEventCallback { playerState ->
-          val track: Track = playerState!!.track
-        };
+  private fun connected(result: Result) {
+    return if (mSpotifyAppRemote != null) {
+      result.success(mSpotifyAppRemote!!.isConnected)
+    } else {
+      result.success(false)
+    }
+  }
 
+  private fun getCurrentlyPlayingTrack(result: Result) {
+    if (mSpotifyAppRemote != null) {
+      mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
+          .setEventCallback { playerState: PlayerState? ->
+            val track: Track = playerState!!.track
+            result.success(track)
+
+          }
+    } else {
+      result.error("error", "no mSpotifyAppRemote", "is null")
+
+    }
   }
 
   private fun onPlaybackPosition(
     events: EventChannel.EventSink
   ) {
     print("adding listener")
-    mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
-        .setEventCallback { playerState: PlayerState? ->
-          val position = playerState!!.playbackPosition
-          events.success(position)
-        }
+    if (mSpotifyAppRemote != null) {
+
+      events.success("adding listener")
+
+      mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
+          .setEventCallback { playerState: PlayerState? ->
+            val track: Track = playerState!!.track
+            Log.d("MainActivity", track.name + " by " + track.artist.name);
+
+            val position = playerState.playbackPosition
+            events.success(position)
+          }
+    } else {
+      events.error("error", "no mSpotifyAppRemote", "is null")
+    }
   }
 
 }
