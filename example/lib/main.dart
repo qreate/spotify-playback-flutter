@@ -20,17 +20,18 @@ class _MyAppState extends State<MyApp> {
     initConnector();
   }
 
+  /// Initialize the spotify playback sdk, by calling spotifyConnect
   Future<void> initConnector() async {
     try {
-      await SpotifyPlayback.spotifyConnect(
-              "0bf5d4f747074014853346a374007765", "feesie://auth")
-          .then((connected) {
+      await SpotifyPlayback.spotifyConnect(clientId: "", redirectUrl: "").then(
+          (connected) {
         if (!mounted) return;
-
+        // If the method call is successful, update the state to reflect this change
         setState(() {
           _connectedToSpotify = connected;
         });
       }, onError: (error) {
+        // If the method call trows an error, print the error to see what went wrong
         print(error);
       });
     } on PlatformException {
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Play an song by spotify track/album/playlist id
   Future<void> play(String id) async {
     try {
       await SpotifyPlayback.play(id).then((success) {
@@ -50,6 +52,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Pause the currently playing track
   Future<void> pause() async {
     try {
       await SpotifyPlayback.pause().then((success) {
@@ -62,6 +65,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Resume the currently paused track
   Future<void> resume() async {
     try {
       await SpotifyPlayback.resume().then((success) {
@@ -74,6 +78,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Gets the currently playing track's playback position
   Future<void> getPlaybackPosition() async {
     try {
       await SpotifyPlayback.getPlaybackPosition().then((position) {
@@ -88,6 +93,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Gets the currently playing track information
   Future<void> getCurrentlyPlayingTrack() async {
     try {
       SpotifyPlayback.getCurrentlyPlayingTrack().then((track) {
@@ -98,6 +104,9 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Sets an listener on the current track's playback position
+  /// Needs changes and is currently not in use
+  @deprecated
   Future<void> monitorPlaybackPosition() async {
     try {
       print("Enable timer");
@@ -116,7 +125,7 @@ class _MyAppState extends State<MyApp> {
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Spotify plugin example app'),
         ),
         body: Column(children: <Widget>[
           new Center(

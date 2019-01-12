@@ -20,18 +20,27 @@ import kotlin.concurrent.fixedRateTimer
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
     StreamHandler {
 
+  // The SpotifyAppRemote global reference
   private var mSpotifyAppRemote: SpotifyAppRemote? = null
 
   companion object {
     @JvmStatic
     fun registerWith(registrar: Registrar) {
+
+      // Register the spotify playback method channel to call the methods from dart
       val channel = MethodChannel(registrar.messenger(), "spotify_playback")
       channel.setMethodCallHandler(SpotifyPlaybackPlugin(registrar))
+
+      // Register the spotify playback status event channel to set listeners from dart
       val eventChannel = EventChannel(registrar.messenger(), "spotify_playback_status")
       eventChannel.setStreamHandler(SpotifyPlaybackPlugin(registrar))
     }
   }
 
+  /**
+   * When an method call is method to the spotify_playback methodChannel
+   * It will be handled here, and the correct function will be called
+   */
   override fun onMethodCall(
     call: MethodCall,
     result: Result
@@ -53,12 +62,17 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  /**
+   * The onlisten for the eventChannel is still in active development
+   * This eventChannel onListen is used to inform the application about changes to the
+   * current playback state such as play/pause actions and track changes
+   */
   override fun onListen(
     arguments: Any,
     eventSink: EventSink
   ) {
-    val clientId = "0bf5d4f747074014853346a374007765"
-    val redirectUrl = "feesie://auth"
+    val clientId = ""
+    val redirectUrl = ""
 
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
@@ -103,35 +117,40 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
 
   }
 
-  fun spotifyConnect(
+  /**
+   * Initializes the Spotify sdk, by passing the clientId and redirectUrl
+   * If successful returns true, else returns the error the sdk threw
+   */
+  private fun spotifyConnect(
     clientId: String?,
     redirectUrl: String?,
     result: Result
   ) {
     if (clientId != null && redirectUrl != null) {
+
       val connectionParams = ConnectionParams.Builder(clientId)
           .setRedirectUri(redirectUrl)
           .showAuthView(true)
           .build()
 
-
       SpotifyAppRemote.CONNECTOR.connect(registrar.context(), connectionParams,
           object : Connector.ConnectionListener {
-
             override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
               mSpotifyAppRemote = spotifyAppRemote
-              Log.d("MainActivity", "Connected! Yay!")
               result.success(true)
             }
 
             override fun onFailure(throwable: Throwable) {
               result.error("connect", "error", throwable)
-              // Something went wrong when attempting to connect! Handle errors here
             }
           })
     }
   }
 
+  /**
+   * Play an Spotify track by passing the Spotify track/playlist/album id
+   * If the Spotify play call is successful return true
+   */
   private fun play(
     spotifyUrl: String?,
     result: Result
@@ -146,6 +165,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  /**
+   * Pauses the currently playing spotify track, if successful return true
+   */
   private fun pause(
     result: Result
   ) {
@@ -159,6 +181,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  /**
+   * Resumes the currently paused spotify track, if successful return true
+   */
   private fun resume(result: Result) {
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.resume()
@@ -170,6 +195,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  /**
+   * Get the currently playing tracks position, if successful returns the position
+   */
   private fun getPlaybackPosition(result: Result) {
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
@@ -180,6 +208,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  /**
+   * Get if the spotify sdk is connected, if so return true
+   */
   private fun connected(result: Result) {
     return if (mSpotifyAppRemote != null) {
       result.success(mSpotifyAppRemote!!.isConnected)
@@ -188,6 +219,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  /**
+   * Gets the currently playing track information and returns it as an Json string
+   */
   private fun getCurrentlyPlayingTrack(result: Result) {
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
@@ -202,6 +236,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  @Deprecated(message = "The function is not stable and should not be used")
   private fun onPlaybackPosition(
     events: EventChannel.EventSink
   ) {
