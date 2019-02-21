@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   /// Initialize the spotify playback sdk, by calling spotifyConnect
   Future<void> initConnector() async {
     try {
-      await SpotifyPlayback.spotifyConnect(clientId: "b5040886ccf14ecab6676276db716983", redirectUrl: "comspotifytestsdk://callback").then(
+      await SpotifyPlayback.spotifyConnect(clientId: "", redirectUrl: "").then(
           (connected) {
         if (!mounted) return;
         // If the method call is successful, update the state to reflect this change
