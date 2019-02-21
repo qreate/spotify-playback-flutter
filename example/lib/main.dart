@@ -200,7 +200,7 @@ class _MyAppState extends State<MyApp> {
             child: Text("position"),
           ),
           new RaisedButton(
-            onPressed: () => print("TEST"),
+            onPressed: () => monitorPlaybackPosition(),
             child: Text("monitorPlaybackPosition"),
           ),
           RaisedButton(onPressed: ()=>seekTo(),child: Text("Seek"),)
