@@ -4,11 +4,11 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:spotify_playback/spotify_playback.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp( MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() =>  _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -160,11 +160,37 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Play the previous song
+  Future<void> toggleShuffle() async {
+    try {
+      await SpotifyPlayback.toggleShuffle().then((success) {
+        print(success);
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
+//Play the next song
+ Future<void> toggleRepeat() async {
+    try {
+      await SpotifyPlayback.toggleRepeat().then((success) {
+        print(success);
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
+    return  MaterialApp(
+      home:  Scaffold(
+        appBar:  AppBar(
           title: const Text('Spotify plugin example app'),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
@@ -172,34 +198,43 @@ class _MyAppState extends State<MyApp> {
 
 
 
-          new Center(
-            child: new Text('Connected to spotify: $_connectedToSpotify\n'),
+           Center(
+            child:  Text('Connected to spotify: $_connectedToSpotify\n'),
           ),
           Wrap(
             children: <Widget>[
-              new RaisedButton(
+               RaisedButton(
                 onPressed: () => play("spotify:track:7zFXmv6vqI4qOt4yGf3jYZ"),
                 child: Text("play"),
               ),
-              new RaisedButton(
+               RaisedButton(
                 onPressed: () => resume(),
                 child: Text("resume"),
               ),
-              new RaisedButton(
+               RaisedButton(
                 onPressed: () => pause(),
                 child: Text("pause"),
-              ), new RaisedButton(
+              ),  RaisedButton(
                 onPressed: () => playPrev(),
                 child: Text("Prev"),
               ),
-              new RaisedButton(
+               RaisedButton(
                 onPressed: () => playNext(),
                 child: Text("Next"),
-              ),new RaisedButton(
+              ),RaisedButton(
+                onPressed: () => toggleShuffle(),
+                child: Text("Shuffle"),
+              ),RaisedButton(
+                onPressed: () => toggleRepeat(),
+                child: Text("Repeat"),
+              ),
+              
+              
+               RaisedButton(
             onPressed: () => getPlaybackPosition(),
             child: Text("position"),
           ),
-          new RaisedButton(
+           RaisedButton(
             onPressed: () => monitorPlaybackPosition(),
             child: Text("monitorPlaybackPosition"),
           ),

@@ -73,8 +73,19 @@ class SpotifyPlayback {
   }
   //The playPrew method is used to play the previous song
     static Future<bool> playPrev() async {
-      print("HELO");
     final bool success = await _channel.invokeMethod("prevTrack");
+    return success;
+  }
+
+   //The toggleRepeat method is used to toggle the repeat types
+    static Future<bool> toggleRepeat() async {
+    final bool success = await _channel.invokeMethod("toggleRepeat");
+    return success;
+  }
+
+   //The toggleshuffle method is used to toggle the shuffle types
+    static Future<bool> toggleShuffle() async {
+    final bool success = await _channel.invokeMethod("toggleShuffle");
     return success;
   }
 
