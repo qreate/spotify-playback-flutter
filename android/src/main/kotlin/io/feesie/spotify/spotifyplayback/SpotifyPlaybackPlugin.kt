@@ -75,8 +75,8 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       toggleRepeat(result)
     }else if(call.method == "toggleShuffle"){
       toggleShuffle(result)
-        }else if (call.method == "getImage") {
-            getImage(result)
+    }else if (call.method == "getImage") {
+        getImage(call.argument("imageUri"),result)
     }
   }
 
@@ -296,10 +296,12 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
      * Get the cover image of a track
      */
 
-    private fun getImage(result: Result) {
+    private fun getImage(
+            imageUri: String?,
+            result: Result) {
         if (mSpotifyAppRemote != null) {
             mSpotifyAppRemote!!.imagesApi
-                    .getImage(ImageUri("spotify:image:8488e30949e687f92b23f69d696faa42f1b50207"), Image.Dimension.LARGE)
+                    .getImage(ImageUri(imageUri), Image.Dimension.LARGE)
                     .setResultCallback { bitmap: Bitmap? ->
 
                         val stream = ByteArrayOutputStream()

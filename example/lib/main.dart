@@ -193,7 +193,7 @@ class _MyAppState extends State<MyApp> {
   //Play the next song
  Future<void> getImage() async {
     try {
-      await SpotifyPlayback.getImage().then((success) {
+      await SpotifyPlayback.getImage("spotify:image:8488e30949e687f92b23f69d696faa42f1b50207").then((success) {
         print(success);
        setState(() {
           image = success;
@@ -261,7 +261,7 @@ class _MyAppState extends State<MyApp> {
           RaisedButton(onPressed: ()=>seekTo(),child: Text("Seek"),)
             ],
           ),
-          image != null?Image.memory(image,height: 100,width: 100,):Text("gelo")
+          image != null?Image.memory(image,height: 100,width: 100,):Text("Image")
 
 
         ]),

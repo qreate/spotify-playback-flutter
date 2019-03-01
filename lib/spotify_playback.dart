@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 
@@ -96,8 +97,8 @@ class SpotifyPlayback {
   }
 
   /// Get the image of a track
-  static Future getImage() async {
-    final success = await _channel.invokeMethod("getImage");
+  static Future<Uint8List> getImage(String imageUri) async {
+    final success = await _channel.invokeMethod("getImage",{"imageUri" : imageUri});
     print(success);
     return success;
 
