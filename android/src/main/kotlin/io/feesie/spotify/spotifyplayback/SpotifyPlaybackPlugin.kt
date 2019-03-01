@@ -1,9 +1,13 @@
 package io.feesie.spotify.playback
 
+import android.graphics.Bitmap
+import android.util.Base64
 import android.util.Log
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.spotify.protocol.types.Image
+import com.spotify.protocol.types.ImageUri
 import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.types.Track
 import io.flutter.plugin.common.EventChannel
@@ -15,6 +19,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.io.ByteArrayOutputStream
+import java.nio.ByteBuffer
 import kotlin.concurrent.fixedRateTimer
 
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
@@ -69,6 +75,8 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       toggleRepeat(result)
     }else if(call.method == "toggleShuffle"){
       toggleShuffle(result)
+        }else if (call.method == "getImage") {
+            getImage(result)
     }
   }
 
@@ -283,6 +291,25 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     }
   }
+
+    /**
+     * Get the cover image of a track
+     */
+
+    private fun getImage(result: Result) {
+        if (mSpotifyAppRemote != null) {
+            mSpotifyAppRemote!!.imagesApi
+                    .getImage(ImageUri("spotify:image:8488e30949e687f92b23f69d696faa42f1b50207"), Image.Dimension.LARGE)
+                    .setResultCallback { bitmap: Bitmap? ->
+
+                        val stream = ByteArrayOutputStream()
+                        bitmap!!.compress(Bitmap.CompressFormat.PNG, 90, stream)
+                        val image = stream.toByteArray()
+                        result.success(image)
+                    }
+        }
+    }
+
 
   /**
    * Get if the spotify sdk is connected, if so return true

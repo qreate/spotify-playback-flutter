@@ -1,8 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:spotify_playback/spotify_playback.dart';
+import 'dart:convert';
 
 void main() => runApp( MyApp());
 
@@ -13,6 +16,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _connectedToSpotify = false;
+  Uint8List image;
 
   @override
   void initState() {
@@ -186,6 +190,23 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  //Play the next song
+ Future<void> getImage() async {
+    try {
+      await SpotifyPlayback.getImage().then((success) {
+        print(success);
+       setState(() {
+          image = success;
+       });
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -194,10 +215,6 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Spotify plugin example app'),
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-
-
-
-
            Center(
             child:  Text('Connected to spotify: $_connectedToSpotify\n'),
           ),
@@ -227,6 +244,9 @@ class _MyAppState extends State<MyApp> {
               ),RaisedButton(
                 onPressed: () => toggleRepeat(),
                 child: Text("Repeat"),
+              ),RaisedButton(
+                onPressed: () => getImage(),
+                child: Text("Get Image"),
               ),
               
               
@@ -241,7 +261,9 @@ class _MyAppState extends State<MyApp> {
           RaisedButton(onPressed: ()=>seekTo(),child: Text("Seek"),)
             ],
           ),
-          
+          image != null?Image.memory(image,height: 100,width: 100,):Text("gelo")
+
+
         ]),
       ),
     );

@@ -95,6 +95,16 @@ class SpotifyPlayback {
     return success;
   }
 
+  /// Get the image of a track
+  static Future getImage() async {
+    final success = await _channel.invokeMethod("getImage");
+    print(success);
+    return success;
+
+    // final String track = await _channel.invokeMethod("getCurrentlyPlayingTrack");
+
+  }
+
 
   
 }
