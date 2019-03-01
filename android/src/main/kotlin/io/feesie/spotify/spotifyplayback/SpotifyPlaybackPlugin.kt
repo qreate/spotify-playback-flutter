@@ -93,7 +93,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           .showAuthView(true)
           .build()
 
-      SpotifyAppRemote.CONNECTOR.connect(registrar.context(), connectionParams,
+      SpotifyAppRemote.connect(registrar.context(), connectionParams,
           object : Connector.ConnectionListener {
             override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
               mSpotifyAppRemote = spotifyAppRemote
@@ -139,7 +139,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           .showAuthView(true)
           .build()
 
-      SpotifyAppRemote.CONNECTOR.connect(registrar.context(), connectionParams,
+      SpotifyAppRemote.connect(registrar.context(), connectionParams,
           object : Connector.ConnectionListener {
             override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
               mSpotifyAppRemote = spotifyAppRemote
