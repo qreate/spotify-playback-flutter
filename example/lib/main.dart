@@ -78,6 +78,20 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+ /// Seek to a defined time in a song
+  Future<void> seekTo() async {
+    try {
+      await SpotifyPlayback.seekTo(20000).then((success) {
+        print(success);
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
+
   /// Gets the currently playing track's playback position
   Future<void> getPlaybackPosition() async {
     try {
@@ -120,6 +134,32 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  /// Play the previous song
+  Future<void> playPrev() async {
+    try {
+      await SpotifyPlayback.playPrev().then((success) {
+        print(success);
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
+//Play the next song
+ Future<void> playNext() async {
+    try {
+      await SpotifyPlayback.playNext().then((success) {
+        print(success);
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -127,23 +167,35 @@ class _MyAppState extends State<MyApp> {
         appBar: new AppBar(
           title: const Text('Spotify plugin example app'),
         ),
-        body: Column(children: <Widget>[
+        body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+
+
+
+
           new Center(
             child: new Text('Connected to spotify: $_connectedToSpotify\n'),
           ),
-          new RaisedButton(
-            onPressed: () => play("spotify:track:7zFXmv6vqI4qOt4yGf3jYZ"),
-            child: Text("play"),
-          ),
-          new RaisedButton(
-            onPressed: () => resume(),
-            child: Text("resume"),
-          ),
-          new RaisedButton(
-            onPressed: () => pause(),
-            child: Text("pause"),
-          ),
-          new RaisedButton(
+          Wrap(
+            children: <Widget>[
+              new RaisedButton(
+                onPressed: () => play("spotify:track:7zFXmv6vqI4qOt4yGf3jYZ"),
+                child: Text("play"),
+              ),
+              new RaisedButton(
+                onPressed: () => resume(),
+                child: Text("resume"),
+              ),
+              new RaisedButton(
+                onPressed: () => pause(),
+                child: Text("pause"),
+              ), new RaisedButton(
+                onPressed: () => playPrev(),
+                child: Text("Prev"),
+              ),
+              new RaisedButton(
+                onPressed: () => playNext(),
+                child: Text("Next"),
+              ),new RaisedButton(
             onPressed: () => getPlaybackPosition(),
             child: Text("position"),
           ),
@@ -151,6 +203,10 @@ class _MyAppState extends State<MyApp> {
             onPressed: () => monitorPlaybackPosition(),
             child: Text("monitorPlaybackPosition"),
           ),
+          RaisedButton(onPressed: ()=>seekTo(),child: Text("Seek"),)
+            ],
+          ),
+          
         ]),
       ),
     );

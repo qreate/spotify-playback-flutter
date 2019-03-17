@@ -59,6 +59,12 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       connected(result)
     } else if (call.method == "getCurrentlyPlayingTrack") {
       getCurrentlyPlayingTrack(result)
+    }else if(call.method == "nextTrack"){   
+      playNext(result)
+    }else if(call.method == "prevTrack"){
+      playPrev(result)
+    }else if (call.method == "seekTo") {
+      seekTo(call.argument("time"), result)
     }
   }
 
@@ -192,6 +198,49 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     } else {
       result.error("resume", "error", "no SpotifyAppRemote")
+    }
+  }
+
+    /**
+   * Plays the next song in the list
+   */
+  private fun playNext(result: Result) {
+    if (mSpotifyAppRemote != null) {
+      mSpotifyAppRemote!!.playerApi.skipNext()
+          .setResultCallback {
+            result.success(true)
+          }
+    } else {
+      result.error("next", "error", "no SpotifyAppRemote")
+    }
+  }
+
+     /**
+   * Plays the next song in the list
+   */
+  private fun playPrev(result: Result) {
+    if (mSpotifyAppRemote != null) {
+      mSpotifyAppRemote!!.playerApi.skipPrevious()
+          .setResultCallback {
+            result.success(true)
+          }
+    } else {
+      result.error("prev", "error", "no SpotifyAppRemote")
+    }
+  }
+
+//Seek To a specified time in the song playing
+    private fun seekTo(
+    time: String?,
+    result: Result
+  ) {
+    if (mSpotifyAppRemote != null && time != null) {
+      mSpotifyAppRemote!!.playerApi.seekTo(time.toLong())
+          .setResultCallback {
+            result.success(true)
+          }
+    } else {
+      result.error("seekTo", "error", "no SpotifyAppRemote")
     }
   }
 
