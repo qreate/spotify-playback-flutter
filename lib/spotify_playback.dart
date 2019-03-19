@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class SpotifyPlayback {
   /// Spotify playback method channel
-  /// The method channel is used to call methods and wait for an response
+  /// The method channel is used to call methods and wait for a response
   static const MethodChannel _channel = const MethodChannel('spotify_playback');
 
   /// Spotify playback status channel
@@ -65,4 +65,25 @@ class SpotifyPlayback {
     return _status_channel.receiveBroadcastStream(
         {"clientId": "clientId", "redirectUrl": "redirectUrl"});
   }
+
+  //The playNext method is used to play the next song
+    static Future<bool> playNext() async {
+    final bool success = await _channel.invokeMethod("nextTrack");
+    return success;
+  }
+  //The playPrew method is used to play the previous song
+    static Future<bool> playPrev() async {
+      print("HELO");
+    final bool success = await _channel.invokeMethod("prevTrack");
+    return success;
+  }
+
+  /// The seekTo method is used to seek to a specific time in a song
+  static Future<bool> seekTo(int time) async {
+    final bool success = await _channel.invokeMethod("seekTo", {"time": time.toString()});
+    return success;
+  }
+
+
+  
 }
