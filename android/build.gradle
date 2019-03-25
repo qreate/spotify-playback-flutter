@@ -44,6 +44,6 @@ android {
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-  implementation(name:'spotify-app-remote-release-0.4.0', ext:'aar')
+  implementation(name:'spotify-app-remote-release-0.6.0', ext:'aar')
   implementation "com.google.code.gson:gson:2.8.2"
 }

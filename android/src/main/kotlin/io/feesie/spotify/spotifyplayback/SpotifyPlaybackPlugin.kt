@@ -65,6 +65,10 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       playPrev(result)
     }else if (call.method == "seekTo") {
       seekTo(call.argument("time"), result)
+    }else if(call.method == "toggleRepeat"){
+      toggleRepeat(result)
+    }else if(call.method == "toggleShuffle"){
+      toggleShuffle(result)
     }
   }
 
@@ -93,7 +97,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           .showAuthView(true)
           .build()
 
-      SpotifyAppRemote.CONNECTOR.connect(registrar.context(), connectionParams,
+      SpotifyAppRemote.connect(registrar.context(), connectionParams,
           object : Connector.ConnectionListener {
             override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
               mSpotifyAppRemote = spotifyAppRemote
@@ -139,7 +143,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           .showAuthView(true)
           .build()
 
-      SpotifyAppRemote.CONNECTOR.connect(registrar.context(), connectionParams,
+      SpotifyAppRemote.connect(registrar.context(), connectionParams,
           object : Connector.ConnectionListener {
             override fun onConnected(spotifyAppRemote: SpotifyAppRemote) {
               mSpotifyAppRemote = spotifyAppRemote
@@ -228,6 +232,29 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       result.error("prev", "error", "no SpotifyAppRemote")
     }
   }
+
+  private fun toggleRepeat(result: Result) {
+    if (mSpotifyAppRemote != null) {
+      mSpotifyAppRemote!!.playerApi.toggleRepeat()
+          .setResultCallback {
+            result.success(true)
+          }
+    } else {
+      result.error("prev", "error", "no SpotifyAppRemote")
+    }
+  }
+
+    private fun toggleShuffle(result: Result) {
+    if (mSpotifyAppRemote != null) {
+      mSpotifyAppRemote!!.playerApi.toggleShuffle()
+          .setResultCallback {
+            result.success(true)
+          }
+    } else {
+      result.error("prev", "error", "no SpotifyAppRemote")
+    }
+  }
+
 
 //Seek To a specified time in the song playing
     private fun seekTo(
