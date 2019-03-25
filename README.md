@@ -69,6 +69,9 @@ See the [example documentation](example/README.md) for more information.
 
 See [CHANGELOG.md](CHANGELOG.md).
 
+## Special Thanks
+ - Alexander Méhes | [BMXsanko](https://github.com/BMXsanko)
+
 ## Contributing
 
 Feel free to contribute by opening issues and/or pull requests. Your feedback is very welcome!
