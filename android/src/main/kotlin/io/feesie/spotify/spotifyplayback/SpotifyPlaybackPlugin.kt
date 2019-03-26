@@ -59,15 +59,15 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       connected(result)
     } else if (call.method == "getCurrentlyPlayingTrack") {
       getCurrentlyPlayingTrack(result)
-    }else if(call.method == "nextTrack"){   
+    } else if (call.method == "nextTrack") {
       playNext(result)
-    }else if(call.method == "prevTrack"){
+    } else if (call.method == "prevTrack") {
       playPrev(result)
-    }else if (call.method == "seekTo") {
+    } else if (call.method == "seekTo") {
       seekTo(call.argument("time"), result)
-    }else if(call.method == "toggleRepeat"){
+    } else if (call.method == "toggleRepeat") {
       toggleRepeat(result)
-    }else if(call.method == "toggleShuffle"){
+    } else if (call.method == "toggleShuffle") {
       toggleShuffle(result)
     }
   }
@@ -205,7 +205,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
-    /**
+  /**
    * Plays the next song in the list
    */
   private fun playNext(result: Result) {
@@ -219,7 +219,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
-     /**
+  /**
    * Plays the next song in the list
    */
   private fun playPrev(result: Result) {
@@ -233,6 +233,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
+  /**
+   * Toggles repeat modes
+   */
   private fun toggleRepeat(result: Result) {
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.toggleRepeat()
@@ -240,24 +243,28 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
             result.success(true)
           }
     } else {
-      result.error("prev", "error", "no SpotifyAppRemote")
+      result.error("repeat", "error", "no SpotifyAppRemote")
     }
   }
 
-    private fun toggleShuffle(result: Result) {
+  /**
+   * Toggles shuffle modes
+   */
+  private fun toggleShuffle(result: Result) {
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.toggleShuffle()
           .setResultCallback {
             result.success(true)
           }
     } else {
-      result.error("prev", "error", "no SpotifyAppRemote")
+      result.error("shuffle", "error", "no SpotifyAppRemote")
     }
   }
 
-
-//Seek To a specified time in the song playing
-    private fun seekTo(
+  /**
+   * Seek To a specified time in the song playing
+   */
+  private fun seekTo(
     time: String?,
     result: Result
   ) {

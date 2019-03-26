@@ -1,6 +1,6 @@
 # spotify_playback
 
-[![](https://img.shields.io/badge/pub-v0.0.2-brightgreen.svg)](https://pub.dartlang.org/packages/spotify_playback) [![](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/Joran-Dob/spotify-playback-flutter/blob/master/LICENSE.md)
+[![](https://img.shields.io/badge/pub-v0.0.4-brightgreen.svg)](https://pub.dartlang.org/packages/spotify_playback) [![](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/Joran-Dob/spotify-playback-flutter/blob/master/LICENSE.md)
 
 
 Spotify Playback Plugin.
@@ -8,9 +8,14 @@ Spotify Playback Plugin.
 ## Getting Started
 
 ## Features
-* Play track/album/playlist
-* Play/pause
+* Play (track / album / playlist)
+* Play / pause
 * Playback position
+* Seek
+* Play Next
+* Play Previous
+* Repeat 
+* Shuffle 
 
 ## Installation
 
@@ -54,6 +59,11 @@ After this you can use all the available methods
 | play      | Play's an spotify track, album or playlist | spotify uri |
 | pause      | Pause's the currently playing track      |    |
 | resume |  Resumes the currently paused track      |     |
+| playNext      | Play's the next track | |
+| playPrev      | Play's the previous track |  |
+| seekTo |  Seeks to the passed time     |  time   |
+| toggleShuffle | Toggle shuffle options    |     |
+| toggleShuffle | Toggle Repeat options    |     |
 | getPlaybackPosition | Get's the current tracks playback position       |    |
 
    
@@ -68,6 +78,9 @@ See the [example documentation](example/README.md) for more information.
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md).
+
+## Special Thanks
+ - Alexander Méhes | [BMXsanko](https://github.com/BMXsanko)
 
 ## Contributing
 
