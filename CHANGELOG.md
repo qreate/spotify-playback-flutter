@@ -1,3 +1,9 @@
+## 0.0.4
+* Reformatted code 
+* Added comments 
+* Gradle version bump
+* Updated readme 
+
 ## 0.0.3
 * Changed the Spotify SDK version to 0.6.0
 * Added Toggle Shuffle & Toggle repeat Functionality

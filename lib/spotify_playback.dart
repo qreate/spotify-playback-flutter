@@ -45,7 +45,7 @@ class SpotifyPlayback {
   }
 
   /// The is connected method is used to check if
-  /// the spotify player is correctly Initialized
+  /// the Spotify player is correctly Initialized
   static Future<bool> isConnected() async {
     final bool connected = await _channel.invokeMethod("isConnected");
     return connected;
@@ -66,35 +66,34 @@ class SpotifyPlayback {
         {"clientId": "clientId", "redirectUrl": "redirectUrl"});
   }
 
-  //The playNext method is used to play the next song
-    static Future<bool> playNext() async {
+  /// The playNext method is used to play the next song
+  static Future<bool> playNext() async {
     final bool success = await _channel.invokeMethod("nextTrack");
     return success;
   }
-  //The playPrew method is used to play the previous song
-    static Future<bool> playPrev() async {
+
+  /// The playPrev method is used to play the previous song
+  static Future<bool> playPrev() async {
     final bool success = await _channel.invokeMethod("prevTrack");
     return success;
   }
 
-   //The toggleRepeat method is used to toggle the repeat types
-    static Future<bool> toggleRepeat() async {
+  /// The toggleRepeat method is used to toggle the repeat types
+  static Future<bool> toggleRepeat() async {
     final bool success = await _channel.invokeMethod("toggleRepeat");
     return success;
   }
 
-   //The toggleshuffle method is used to toggle the shuffle types
-    static Future<bool> toggleShuffle() async {
+  /// The toggleShuffle method is used to toggle the shuffle types
+  static Future<bool> toggleShuffle() async {
     final bool success = await _channel.invokeMethod("toggleShuffle");
     return success;
   }
 
   /// The seekTo method is used to seek to a specific time in a song
   static Future<bool> seekTo(int time) async {
-    final bool success = await _channel.invokeMethod("seekTo", {"time": time.toString()});
+    final bool success =
+        await _channel.invokeMethod("seekTo", {"time": time.toString()});
     return success;
   }
-
-
-  
 }

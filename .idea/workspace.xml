@@ -15,6 +15,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/src/main/kotlin/io/feesie/spotify/spotifyplayback/SpotifyPlaybackPlugin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/kotlin/io/feesie/spotify/spotifyplayback/SpotifyPlaybackPlugin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/spotify_playback.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/spotify_playback.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -86,39 +90,39 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="LICENSE" value="1" />
-          <entry key="dart" value="9" />
-          <entry key="gradle" value="3" />
+          <entry key="dart" value="12" />
+          <entry key="gradle" value="4" />
           <entry key="kt" value="1" />
-          <entry key="md" value="7" />
-          <entry key="yaml" value="4" />
+          <entry key="md" value="8" />
+          <entry key="yaml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="9" />
-          <entry key="Groovy" value="3" />
+          <entry key="Dart" value="12" />
+          <entry key="Groovy" value="4" />
           <entry key="Kotlin" value="1" />
-          <entry key="Markdown" value="7" />
+          <entry key="Markdown" value="8" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="YAML" value="4" />
+          <entry key="YAML" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="2210" />
+          <entry key="dart" value="2351" />
           <entry key="gradle" value="6" />
           <entry key="kt" value="225" />
-          <entry key="md" value="1073" />
-          <entry key="yaml" value="41" />
+          <entry key="md" value="1340" />
+          <entry key="yaml" value="50" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="2210" />
+          <entry key="Dart" value="2351" />
           <entry key="Groovy" value="6" />
           <entry key="Kotlin" value="225" />
-          <entry key="Markdown" value="1073" />
-          <entry key="YAML" value="41" />
+          <entry key="Markdown" value="1340" />
+          <entry key="YAML" value="50" />
         </counts>
       </usages-collector>
     </session>
@@ -128,17 +132,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1036">
-              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+            <state relative-caret-position="255">
+              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/android/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="75">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="279">
+              <caret line="82" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -146,8 +162,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/spotify_playback.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="75" column="2" lean-forward="true" selection-start-line="75" selection-start-column="2" selection-end-line="75" selection-end-column="2" />
+            <state relative-caret-position="171">
+              <caret line="68" column="51" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -156,10 +172,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="3" lean-forward="true" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+            <state relative-caret-position="120">
+              <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -189,22 +214,22 @@
         <option value="$PROJECT_DIR$/example/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/example/android/app/src/main/kotlin/io/feesie/spotify/spotifyplaybackexample/MainActivity.kt" />
         <option value="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/android/build.gradle" />
         <option value="$PROJECT_DIR$/android/src/main/kotlin/io/feesie/spotify/spotifyplayback/SpotifyPlaybackPlugin.kt" />
         <option value="$PROJECT_DIR$/example/README.md" />
-        <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/LICENSE" />
         <option value="$PROJECT_DIR$/LICENSE.md" />
         <option value="$PROJECT_DIR$/lib/spotify_playback.dart" />
-        <option value="$PROJECT_DIR$/pubspec.yaml" />
+        <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/android/build.gradle" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
-    <option name="width" value="1396" />
+    <option name="width" value="1393" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectView">
@@ -264,6 +289,22 @@
             <path>
               <item name="spotify-playback-flutter" type="b2602c69:ProjectViewProjectNode" />
               <item name="spotify-playback-flutter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spotify-playback-flutter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="spotify-playback-flutter" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spotify-playback-flutter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="spotify-playback-flutter" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spotify-playback-flutter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="spotify-playback-flutter" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="spotify-playback-flutter" type="b2602c69:ProjectViewProjectNode" />
@@ -344,13 +385,13 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.6853056" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.17945383" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Logcat" order="7" weight="0.60858256" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32899868" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5003701" side_tool="true" weight="0.32769832" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Android Profiler" order="11" show_stripe_button="false" />
@@ -358,7 +399,7 @@
       <window_info anchor="bottom" id="TestFairy" order="13" />
       <window_info anchor="bottom" id="Atlassian " order="14" />
       <window_info anchor="bottom" id="Flutter Performance" order="15" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="16" sideWeight="0.4996299" visible="true" weight="0.32769832" />
+      <window_info anchor="bottom" id="Messages" order="16" sideWeight="0.4996299" weight="0.32769832" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -395,13 +436,6 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/android/app/src/main/kotlin/io/feesie/spotify/spotifyplaybackexample/MainActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -461,13 +495,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/android/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/test/widget_test.dart" />
     <entry file="file://$PROJECT_DIR$/example/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor" />
@@ -476,16 +503,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="42" column="53" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="146" column="48" selection-start-line="146" selection-start-column="29" selection-end-line="146" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -503,41 +520,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/example/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-end-line="3" />
+        <state relative-caret-position="120">
+          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="82" column="32" selection-start-line="82" selection-start-column="32" selection-end-line="82" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/spotify_playback.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="75" column="2" lean-forward="true" selection-start-line="75" selection-start-column="2" selection-end-line="75" selection-end-column="2" />
+        <state relative-caret-position="171">
+          <caret line="68" column="51" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/android/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1036">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+        <state relative-caret-position="75">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="3" lean-forward="true" selection-start-line="26" selection-start-column="3" selection-end-line="26" selection-end-column="3" />
+        <state relative-caret-position="255">
+          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="60">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
         </state>
       </provider>
     </entry>

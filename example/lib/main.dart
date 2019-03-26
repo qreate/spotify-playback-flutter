@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:flutter/services.dart';
+import 'dart:async';
 import 'package:spotify_playback/spotify_playback.dart';
 
-void main() => runApp( MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() =>  _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -78,7 +77,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
- /// Seek to a defined time in a song
+  /// Seek to a defined time in a song
   Future<void> seekTo() async {
     try {
       await SpotifyPlayback.seekTo(20000).then((success) {
@@ -90,7 +89,6 @@ class _MyAppState extends State<MyApp> {
       print('Failed to play.');
     }
   }
-
 
   /// Gets the currently playing track's playback position
   Future<void> getPlaybackPosition() async {
@@ -147,8 +145,8 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-//Play the next song
- Future<void> playNext() async {
+  ///Play the next song
+  Future<void> playNext() async {
     try {
       await SpotifyPlayback.playNext().then((success) {
         print(success);
@@ -156,11 +154,11 @@ class _MyAppState extends State<MyApp> {
         print(error);
       });
     } on PlatformException {
-      print('Failed to play.');
+      print('Failed to play next song.');
     }
   }
 
-  /// Play the previous song
+  /// Toggle shuffle
   Future<void> toggleShuffle() async {
     try {
       await SpotifyPlayback.toggleShuffle().then((success) {
@@ -169,12 +167,12 @@ class _MyAppState extends State<MyApp> {
         print(error);
       });
     } on PlatformException {
-      print('Failed to play.');
+      print('Failed to toggle shuffle.');
     }
   }
 
-//Play the next song
- Future<void> toggleRepeat() async {
+  /// Toggle repeat
+  Future<void> toggleRepeat() async {
     try {
       await SpotifyPlayback.toggleRepeat().then((success) {
         print(success);
@@ -182,67 +180,69 @@ class _MyAppState extends State<MyApp> {
         print(error);
       });
     } on PlatformException {
-      print('Failed to play.');
+      print('Failed to toggle repeat.');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home:  Scaffold(
-        appBar:  AppBar(
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
           title: const Text('Spotify plugin example app'),
         ),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-
-
-
-
-           Center(
-            child:  Text('Connected to spotify: $_connectedToSpotify\n'),
-          ),
-          Wrap(
+        body: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-               RaisedButton(
-                onPressed: () => play("spotify:track:7zFXmv6vqI4qOt4yGf3jYZ"),
-                child: Text("play"),
+              Center(
+                child: Text('Connected to spotify: $_connectedToSpotify\n'),
               ),
-               RaisedButton(
-                onPressed: () => resume(),
-                child: Text("resume"),
+              Wrap(
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () =>
+                        play("spotify:track:7zFXmv6vqI4qOt4yGf3jYZ"),
+                    child: Text("play"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => resume(),
+                    child: Text("resume"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => pause(),
+                    child: Text("pause"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => playPrev(),
+                    child: Text("Prev"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => playNext(),
+                    child: Text("Next"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => toggleShuffle(),
+                    child: Text("Shuffle"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => toggleRepeat(),
+                    child: Text("Repeat"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => getPlaybackPosition(),
+                    child: Text("position"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => monitorPlaybackPosition(),
+                    child: Text("monitorPlaybackPosition"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => seekTo(),
+                    child: Text("Seek"),
+                  )
+                ],
               ),
-               RaisedButton(
-                onPressed: () => pause(),
-                child: Text("pause"),
-              ),  RaisedButton(
-                onPressed: () => playPrev(),
-                child: Text("Prev"),
-              ),
-               RaisedButton(
-                onPressed: () => playNext(),
-                child: Text("Next"),
-              ),RaisedButton(
-                onPressed: () => toggleShuffle(),
-                child: Text("Shuffle"),
-              ),RaisedButton(
-                onPressed: () => toggleRepeat(),
-                child: Text("Repeat"),
-              ),
-              
-              
-               RaisedButton(
-            onPressed: () => getPlaybackPosition(),
-            child: Text("position"),
-          ),
-           RaisedButton(
-            onPressed: () => monitorPlaybackPosition(),
-            child: Text("monitorPlaybackPosition"),
-          ),
-          RaisedButton(onPressed: ()=>seekTo(),child: Text("Seek"),)
-            ],
-          ),
-          
-        ]),
+            ]),
       ),
     );
   }
