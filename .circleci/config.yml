@@ -1,4 +1,4 @@
-version: 1
+version: 2
 jobs:
   build:
     docker:
@@ -6,5 +6,4 @@ jobs:
     steps:
     - checkout
     - run: flutter doctor
-    - run: flutter test
-    - run: flutter -v build apk
+    - run: cd example && flutter -v build apk
