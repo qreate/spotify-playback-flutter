@@ -1,10 +1,11 @@
-version: 1
+version: 2
 jobs:
   build:
+    working_directory: ~/example
     docker:
     - image: cirrusci/flutter
     steps:
-    - checkout
+    - checkout:
+        path: ~/example
     - run: flutter doctor
-    - run: flutter test
     - run: flutter -v build apk
