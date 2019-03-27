@@ -59,8 +59,8 @@ After this you can use all the available methods
 | play      | Play's an spotify track, album or playlist | spotify uri |
 | pause      | Pause's the currently playing track      |    |
 | resume |  Resumes the currently paused track      |     |
-| playNext      | Play's the next track | |
-| playPrev      | Play's the previous track |  |
+| skipNext      | Play's the next track | |
+| skipPrevious      | Play's the previous track |  |
 | seekTo |  Seeks to the passed time     |  time   |
 | toggleShuffle | Toggle shuffle options    |     |
 | toggleShuffle | Toggle Repeat options    |     |

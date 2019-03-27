@@ -59,10 +59,10 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       connected(result)
     } else if (call.method == "getCurrentlyPlayingTrack") {
       getCurrentlyPlayingTrack(result)
-    } else if (call.method == "nextTrack") {
-      playNext(result)
-    } else if (call.method == "prevTrack") {
-      playPrev(result)
+    } else if (call.method == "skipNext") {
+      skipNext(result)
+    } else if (call.method == "skipPrevious") {
+      skipPrevious(result)
     } else if (call.method == "seekTo") {
       seekTo(call.argument("time"), result)
     } else if (call.method == "toggleRepeat") {
@@ -208,7 +208,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
   /**
    * Plays the next song in the list
    */
-  private fun playNext(result: Result) {
+  private fun skipNext(result: Result) {
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.skipNext()
           .setResultCallback {
@@ -222,7 +222,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
   /**
    * Plays the next song in the list
    */
-  private fun playPrev(result: Result) {
+  private fun skipPrevious(result: Result) {
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.skipPrevious()
           .setResultCallback {

@@ -133,9 +133,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   /// Play the previous song
-  Future<void> playPrev() async {
+  Future<void> skipPrevious() async {
     try {
-      await SpotifyPlayback.playPrev().then((success) {
+      await SpotifyPlayback.skipPrevious().then((success) {
         print(success);
       }, onError: (error) {
         print(error);
@@ -146,9 +146,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   ///Play the next song
-  Future<void> playNext() async {
+  Future<void> skipNext() async {
     try {
-      await SpotifyPlayback.playNext().then((success) {
+      await SpotifyPlayback.skipNext().then((success) {
         print(success);
       }, onError: (error) {
         print(error);
@@ -213,11 +213,11 @@ class _MyAppState extends State<MyApp> {
                     child: Text("pause"),
                   ),
                   RaisedButton(
-                    onPressed: () => playPrev(),
+                    onPressed: () => skipPrevious(),
                     child: Text("Prev"),
                   ),
                   RaisedButton(
-                    onPressed: () => playNext(),
+                    onPressed: () => skipNext(),
                     child: Text("Next"),
                   ),
                   RaisedButton(
