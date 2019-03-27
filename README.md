@@ -1,6 +1,6 @@
 # spotify_playback
 
-[![](https://img.shields.io/badge/pub-v0.0.4-brightgreen.svg)](https://pub.dartlang.org/packages/spotify_playback) [![](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/Joran-Dob/spotify-playback-flutter/blob/master/LICENSE.md)
+[![CircleCI](https://circleci.com/gh/Joran-Dob/spotify-playback-flutter/tree/master.svg?style=svg)](https://circleci.com/gh/Joran-Dob/spotify-playback-flutter/tree/master) [![](https://img.shields.io/badge/pub-v0.0.4-brightgreen.svg)](https://pub.dartlang.org/packages/spotify_playback) [![](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/Joran-Dob/spotify-playback-flutter/blob/master/LICENSE.md)
 
 
 Spotify Playback Plugin.
