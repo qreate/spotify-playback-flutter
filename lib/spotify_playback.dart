@@ -66,15 +66,15 @@ class SpotifyPlayback {
         {"clientId": "clientId", "redirectUrl": "redirectUrl"});
   }
 
-  /// The playNext method is used to play the next song
-  static Future<bool> playNext() async {
-    final bool success = await _channel.invokeMethod("nextTrack");
+  /// The skipNext method is used to play the next song
+  static Future<bool> skipNext() async {
+    final bool success = await _channel.invokeMethod("skipNext");
     return success;
   }
 
-  /// The playPrev method is used to play the previous song
-  static Future<bool> playPrev() async {
-    final bool success = await _channel.invokeMethod("prevTrack");
+  /// The skipPrevious method is used to play the previous song
+  static Future<bool> skipPrevious() async {
+    final bool success = await _channel.invokeMethod("skipPrevious");
     return success;
   }
 
