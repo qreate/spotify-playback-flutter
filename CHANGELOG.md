@@ -1,3 +1,7 @@
+## 0.0.5
+* Renamed playprev, playnext to the more commonly used skipNext, skipPrevious
+* Updated the Spotify SDK version to 0.6.1
+
 ## 0.0.4
 * Reformatted code 
 * Added comments 
