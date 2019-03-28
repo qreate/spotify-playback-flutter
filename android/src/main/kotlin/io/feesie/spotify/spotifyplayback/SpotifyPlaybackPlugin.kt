@@ -53,6 +53,8 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       pause(result)
     } else if (call.method == ("resumeSpotify")) {
       resume(result)
+    } else if (call.method == "queue") {
+      queue(call.argument("id"), result)
     } else if (call.method == ("playbackPositionSpotify")) {
       getPlaybackPosition(result)
     } else if (call.method == "isConnected") {
@@ -162,16 +164,16 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
    * If the Spotify play call is successful return true
    */
   private fun play(
-    spotifyUrl: String?,
+    spotifyUri: String?,
     result: Result
   ) {
-    if (mSpotifyAppRemote != null && spotifyUrl != null) {
-      mSpotifyAppRemote!!.playerApi.play(spotifyUrl)
+    if (mSpotifyAppRemote != null && spotifyUri != null) {
+      mSpotifyAppRemote!!.playerApi.play(spotifyUri)
           .setResultCallback {
             result.success(true)
           }
     } else {
-      result.error("play", "error", "no SpotifyAppRemote $spotifyUrl")
+      result.error("play", "error", "no SpotifyAppRemote $spotifyUri")
     }
   }
 
@@ -202,6 +204,23 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     } else {
       result.error("resume", "error", "no SpotifyAppRemote")
+    }
+  }
+
+  /**
+   * Add songs / playlist / albums to the queue
+   */
+  private fun queue(
+    spotifyUri: String?,
+    result: Result
+  ) {
+    if (mSpotifyAppRemote != null) {
+      mSpotifyAppRemote!!.playerApi.queue(spotifyUri)
+          .setResultCallback {
+            result.success(true)
+          }
+    } else {
+      result.error("paqueueuse", "error", "no SpotifyAppRemote")
     }
   }
 
