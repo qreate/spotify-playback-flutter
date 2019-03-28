@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:spotify_playback/spotify_playback.dart';
+import 'credentials.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   /// Initialize the spotify playback sdk, by calling spotifyConnect
   Future<void> initConnector() async {
     try {
-      await SpotifyPlayback.spotifyConnect(clientId: "", redirectUrl: "").then(
+      await SpotifyPlayback.spotifyConnect(clientId: Credentials.clientId, redirectUrl: Credentials.redirectUrl).then(
           (connected) {
         if (!mounted) return;
         // If the method call is successful, update the state to reflect this change
