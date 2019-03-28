@@ -110,7 +110,7 @@ class _MyAppState extends State<MyApp> {
   /// Seek to a a defined time relative to the current time
   Future<void> seekToRelativePosition() async {
     try {
-      await SpotifyPlayback.seekToRelativePosition(-5000).then((success) {
+      await SpotifyPlayback.seekToRelativePosition(5000).then((success) {
         print(success);
       }, onError: (error) {
         print(error);
@@ -277,7 +277,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   RaisedButton(
                     onPressed: () => seekToRelativePosition(),
-                    child: Text("Seek"),
+                    child: Text("Seek Relative(+5s)"),
                   )
                 ],
               ),
