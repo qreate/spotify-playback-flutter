@@ -23,8 +23,10 @@ class _MyAppState extends State<MyApp> {
   /// Initialize the spotify playback sdk, by calling spotifyConnect
   Future<void> initConnector() async {
     try {
-      await SpotifyPlayback.spotifyConnect(clientId: Credentials.clientId, redirectUrl: Credentials.redirectUrl).then(
-          (connected) {
+      await SpotifyPlayback.spotifyConnect(
+              clientId: Credentials.clientId,
+              redirectUrl: Credentials.redirectUrl)
+          .then((connected) {
         if (!mounted) return;
         // If the method call is successful, update the state to reflect this change
         setState(() {
@@ -75,6 +77,19 @@ class _MyAppState extends State<MyApp> {
       });
     } on PlatformException {
       print('Failed to resume.');
+    }
+  }
+
+  /// Add an song / playlist / album to the playback queue
+  Future<void> queue(String id) async {
+    try {
+      await SpotifyPlayback.queue(id).then((success) {
+        print(success);
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to queue.');
     }
   }
 
@@ -203,15 +218,20 @@ class _MyAppState extends State<MyApp> {
                   RaisedButton(
                     onPressed: () =>
                         play("spotify:track:7zFXmv6vqI4qOt4yGf3jYZ"),
-                    child: Text("play"),
+                    child: Text("Play"),
                   ),
                   RaisedButton(
                     onPressed: () => resume(),
-                    child: Text("resume"),
+                    child: Text("Resume"),
                   ),
                   RaisedButton(
                     onPressed: () => pause(),
-                    child: Text("pause"),
+                    child: Text("Pause"),
+                  ),
+                  RaisedButton(
+                    onPressed: () =>
+                        queue("spotify:track:6b6liLOZhXdOfFBFVN5KNK"),
+                    child: Text("Queue"),
                   ),
                   RaisedButton(
                     onPressed: () => skipPrevious(),
@@ -231,11 +251,11 @@ class _MyAppState extends State<MyApp> {
                   ),
                   RaisedButton(
                     onPressed: () => getPlaybackPosition(),
-                    child: Text("position"),
+                    child: Text("Position"),
                   ),
                   RaisedButton(
                     onPressed: () => monitorPlaybackPosition(),
-                    child: Text("monitorPlaybackPosition"),
+                    child: Text("MonitorPlaybackPosition"),
                   ),
                   RaisedButton(
                     onPressed: () => seekTo(),

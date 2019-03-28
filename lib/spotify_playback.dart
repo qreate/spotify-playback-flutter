@@ -38,6 +38,12 @@ class SpotifyPlayback {
     return resumed;
   }
 
+  /// The queue method adds song / playlist / album to the players queue
+  static Future<bool> queue(String id) async {
+    final bool queued = await _channel.invokeMethod("queue", {"id": id});
+    return queued;
+  }
+
   /// The getPlaybackPosition method is used to get the current tracks playback position
   static Future<int> getPlaybackPosition() async {
     final int position = await _channel.invokeMethod("playbackPositionSpotify");
