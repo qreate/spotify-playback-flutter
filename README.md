@@ -13,6 +13,7 @@ Spotify Playback Plugin.
 * Queue
 * Playback position
 * Seek
+* Seek to relative position
 * Play Next
 * Play Previous
 * Repeat 
