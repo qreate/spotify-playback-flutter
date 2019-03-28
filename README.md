@@ -63,12 +63,13 @@ After this you can use all the available methods
 | queue |  Adds an track / playlist / album to the queue     |   spotify uri  |
 | skipNext      | Play's the next track | |
 | skipPrevious      | Play's the previous track |  |
-| seekTo |  Seeks to the passed time     |  time   |
+| seekTo |  Seeks to the passed time     |  time(mS)   |
+|seekToRelativePosition|Seeks to relative position|+-time(mS)|
 | toggleShuffle | Toggle shuffle options    |     |
 | toggleShuffle | Toggle Repeat options    |     |
 | getPlaybackPosition | Get's the current tracks playback position       |    |
 
-   
+
 
 
 ## Example

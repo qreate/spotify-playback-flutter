@@ -106,6 +106,20 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+
+  /// Seek to a a defined time relative to the current time
+  Future<void> seekToRelativePosition() async {
+    try {
+      await SpotifyPlayback.seekToRelativePosition(-5000).then((success) {
+        print(success);
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
   /// Gets the currently playing track's playback position
   Future<void> getPlaybackPosition() async {
     try {
@@ -259,6 +273,10 @@ class _MyAppState extends State<MyApp> {
                   ),
                   RaisedButton(
                     onPressed: () => seekTo(),
+                    child: Text("Seek"),
+                  ),
+                  RaisedButton(
+                    onPressed: () => seekToRelativePosition(),
                     child: Text("Seek"),
                   )
                 ],

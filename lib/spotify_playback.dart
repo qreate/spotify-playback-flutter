@@ -102,4 +102,9 @@ class SpotifyPlayback {
         await _channel.invokeMethod("seekTo", {"time": time.toString()});
     return success;
   }
+    static Future<bool> seekToRelativePosition(int relativeTime) async {
+    final bool success =
+        await _channel.invokeMethod("seekToRelativePosition", {"relativeTime": relativeTime.toString()});
+    return success;
+  }
 }
