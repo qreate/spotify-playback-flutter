@@ -67,6 +67,8 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       skipPrevious(result)
     } else if (call.method == "seekTo") {
       seekTo(call.argument("time"), result)
+    }else if (call.method == "seekToRelativePosition") {
+       seekToRelativePosition(call.argument("relativeTime"), result)
     } else if (call.method == "toggleRepeat") {
       toggleRepeat(result)
     } else if (call.method == "toggleShuffle") {
@@ -289,6 +291,22 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
   ) {
     if (mSpotifyAppRemote != null && time != null) {
       mSpotifyAppRemote!!.playerApi.seekTo(time.toLong())
+          .setResultCallback {
+            result.success(true)
+          }
+    } else {
+      result.error("seekTo", "error", "no SpotifyAppRemote")
+    }
+  }
+    /**
+     * Seek To relative position
+     */
+    private fun seekToRelativePosition(
+    relativeTime: String?,
+    result: Result
+  ) {
+    if (mSpotifyAppRemote != null && relativeTime != null) {
+      mSpotifyAppRemote!!.playerApi.seekToRelativePosition(relativeTime.toLong())
           .setResultCallback {
             result.success(true)
           }
