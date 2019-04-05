@@ -5,11 +5,11 @@
 
 Spotify Playback Plugin.
 
-## Getting Started
+**No iOS Implementation yet, WIP..**
 
 ## Features
 * Play (track / album / playlist)
-* Play / pause
+* Resume / pause
 * Queue
 * Playback position
 * Seek
@@ -20,6 +20,7 @@ Spotify Playback Plugin.
 * Shuffle 
 
 ## Installation
+**`IMPORTANT:` Make sure you have the Spotify app installed and that you are logged in or your test device!**
 
 First, add `spotify_playback` as a dependency in your `pubspec.yaml` file.
 
