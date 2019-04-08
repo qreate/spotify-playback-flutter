@@ -1,9 +1,12 @@
 package io.feesie.spotify.playback
 
+import android.graphics.Bitmap
 import android.util.Log
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.spotify.protocol.types.Image
+import com.spotify.protocol.types.ImageUri
 import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.types.Track
 import io.flutter.plugin.common.EventChannel
@@ -15,6 +18,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.io.ByteArrayOutputStream
 import kotlin.concurrent.fixedRateTimer
 
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
@@ -73,7 +77,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       toggleRepeat(result)
     } else if (call.method == "toggleShuffle") {
       toggleShuffle(result)
-    }
+    }else if (call.method == "getImage") {
+            getImage(call.argument("uri"), result)
+        }
   }
 
   /**
@@ -327,6 +333,28 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     }
   }
+
+      /**
+     * Gets the image as a Uint8List for flutter
+     */
+    private fun getImage(
+            uri: String?,
+            result: Result
+    ) {
+        if (mSpotifyAppRemote != null && uri != null) {
+            mSpotifyAppRemote!!.imagesApi
+                    .getImage(ImageUri(uri), Image.Dimension.SMALL)
+                    .setResultCallback { bitmap: Bitmap? ->
+                        val stream = ByteArrayOutputStream()
+                        bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                        val byteArray = stream.toByteArray()
+                        bitmap.recycle()
+                        result.success(byteArray)
+                    }
+        } else {
+            result.error("getImage", "error", "no SpotifyAppRemote")
+        }
+    }
 
   /**
    * Get if the spotify sdk is connected, if so return true

@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
@@ -13,6 +14,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _connectedToSpotify = false;
+  Uint8List image = null;
 
   @override
   void initState() {
@@ -214,6 +216,21 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+    /// Get the image by provided uri
+  Future<void> getImage(String uri) async {
+    try {
+      await SpotifyPlayback.getImage(uri).then((imageReceived) {
+        setState(() {
+          image = imageReceived;
+        });
+      }, onError: (error) {
+        print(error);
+      });
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -278,7 +295,12 @@ class _MyAppState extends State<MyApp> {
                   RaisedButton(
                     onPressed: () => seekToRelativePosition(),
                     child: Text("Seek Relative(+5s)"),
-                  )
+                  ),
+                  RaisedButton(
+                    onPressed: () => getImage(SpotifyPlayback.imageLinkToURi("https://i.scdn.co/image/3269971d34d3f17f16efc2dfa95e302cc961a36c")),
+                    child: Text("Get image")),
+              
+                  (image != null) ? Image.memory(image,height: 100,) : Text("Image Placeholder")
                 ],
               ),
             ]),

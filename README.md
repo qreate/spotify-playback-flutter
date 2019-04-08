@@ -70,15 +70,28 @@ After this you can use all the available methods
 | toggleShuffle | Toggle shuffle options    |     |
 | toggleShuffle | Toggle Repeat options    |     |
 | getPlaybackPosition | Get's the current tracks playback position       |    |
-
-
-
+| getImage | Gets a Uint8List encoded image(memoryImage)       |  imageUri  |
+| imageLinkToURi | Takes an image url and returns image uri(for get image)    |  imageLink  |
 
 ## Example
 
 Demonstrates how to use the spotify_playback plugin.
 
 See the [example documentation](example/README.md) for more information.
+
+## GetImage   
+```dart
+//You can provide an image uri
+SpotifyPlayback.getImage("spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c");
+
+//Or you can provide an url returned webAPI
+SpotifyPlayback.getImage(SpotifyPlayback.imageLinkToURi("https://i.scdn.co/image/3269971d34d3f17f16efc2dfa95e302cc961a36c"));
+
+//Theese both return a Uint8List encoded image.
+//You can then use the Image.memory() to display the image
+Image.memory(yourUint8ListImageHere)
+
+```
 
 ## Changelog
 
