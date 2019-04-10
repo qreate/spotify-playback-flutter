@@ -5,7 +5,7 @@
 
 Spotify Playback Plugin.
 
-**No iOS Implementation yet, WIP..**
+[**No iOS Implementation yet, WIP..**](https://github.com/qreate/spotify-playback-flutter/projects/1)
 
 ## Features
 * Play (track / album / playlist)
@@ -58,22 +58,22 @@ Then initialize the spotify playback sdk like this
 After this you can use all the available methods
 
 ## Available methods 
-| Method        | description           | parameters  |
-| ------------- |:-------------:| -----:|
-| spotifyConnect      | Initilizes the spotify playback sdk | clientId, redirectUrl |
-| play      | Play's an spotify track, album or playlist | spotify uri |
-| pause      | Pause's the currently playing track      |    |
-| resume |  Resumes the currently paused track      |     |
-| queue |  Adds an track / playlist / album to the queue     |   spotify uri  |
-| skipNext      | Play's the next track | |
-| skipPrevious      | Play's the previous track |  |
-| seekTo |  Seeks to the passed time     |  time(mS)   |
-|seekToRelativePosition|Seeks to relative position|+-time(mS)|
-| toggleShuffle | Toggle shuffle options    |     |
-| toggleShuffle | Toggle Repeat options    |     |
-| getPlaybackPosition | Get's the current tracks playback position       |    |
-| getImage | Gets a Uint8List encoded image(memoryImage)       |  imageUri  |
-| imageLinkToURi | Takes an image url and returns image uri(for get image)    |  imageLink  |
+| Method        | description           | parameters  | notes |
+| ------------- |:-------------:| -----:|-----:|
+| spotifyConnect      | Initilizes the spotify playback sdk | clientId, redirectUrl ||
+| play      | Play's an spotify track, album or playlist | spotify uri ||
+| pause      | Pause's the currently playing track      |    ||
+| resume |  Resumes the currently paused track      |     ||
+| queue |  Adds an track / playlist / album to the queue     |   spotify uri  ||
+| skipNext      | Play's the next track | ||
+| skipPrevious      | Play's the previous track |  ||
+| seekTo |  Seeks to the passed time     |  time(mS)   ||
+|seekToRelativePosition|Seeks to relative position|+-time(mS)||
+| toggleShuffle | Toggle shuffle options    |     ||
+| toggleShuffle | Toggle Repeat options    |     ||
+| getPlaybackPosition | Get's the current tracks playback position       |    ||
+| getImage | Gets a Uint8List encoded image(memoryImage)       |  imageUri  | [![](https://img.shields.io/badge/WARNING-23-orange.svg)](https://github.com/qreate/spotify-playback-flutter/issues/23)
+| imageLinkToURi | Takes an image url and returns image uri(for get image)    |  imageLink  ||
 
 ## Example
 
@@ -84,6 +84,7 @@ See the [example documentation](example/README.md) for more information.
 
 ## Function examples
 ### GetImage   
+[![](https://img.shields.io/badge/WARNING-23-orange.svg)](https://github.com/qreate/spotify-playback-flutter/issues/23)
 ```dart
 //You can provide an image uri
 SpotifyPlayback.getImage("spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c");
