@@ -22,7 +22,9 @@ Spotify Playback Plugin.
 ## Installation
 **`IMPORTANT:` Make sure you have the Spotify app installed and that you are logged in or your test device!**
 
-First, add `spotify_playback` as a dependency in your `pubspec.yaml` file.
+First, add `spotify_playback` as a dependency in your `pubspec.yaml` file. 
+
+Afterwards, download the Spotify Android SDK [here](https://github.com/spotify/android-sdk/releases/tag/v0.6.1-appremote_v1.1.0-auth) and move the spotify-app-remote-release-x.x.x.aar file to `android/app/libs/` in your project.
 
 Then initialize the spotify playback sdk like this 
 
@@ -79,7 +81,9 @@ Demonstrates how to use the spotify_playback plugin.
 
 See the [example documentation](example/README.md) for more information.
 
-## GetImage   
+
+## Function examples
+### GetImage   
 ```dart
 //You can provide an image uri
 SpotifyPlayback.getImage("spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c");
@@ -109,3 +113,4 @@ Feel free to contribute by opening issues and/or pull requests. Your feedback is
 MIT License
 
 Copyright (c) [2019] [Joran Dob]
+Copyright (c) [2019] [QREATE]
