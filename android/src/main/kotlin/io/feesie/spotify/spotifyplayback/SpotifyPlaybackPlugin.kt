@@ -20,7 +20,6 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.io.ByteArrayOutputStream
-import java.util.concurrent.Executors
 import kotlin.concurrent.fixedRateTimer
 
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
@@ -40,9 +39,6 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       // Register the spotify playback status event channel to set listeners from dart
       val eventChannel = EventChannel(registrar.messenger(), "spotify_playback_status")
       eventChannel.setStreamHandler(SpotifyPlaybackPlugin(registrar))
-
-      val executor = Executors.newFixedThreadPool(5)
-
     }
   }
 
