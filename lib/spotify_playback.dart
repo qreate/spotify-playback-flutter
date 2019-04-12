@@ -109,13 +109,12 @@ class SpotifyPlayback {
   }
   /// This method is used to get an image by the provided imageURI and returns a Uint8List(MemoryImage)
   static Future<Uint8List> getImage(String uri) async {
-    final Uint8List success = await _channel.invokeMethod("getImage", {"uri": uri});
-    return success;
+     final image = await _channel.invokeMethod("getImage", {"uri": "spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c"});
+      return image;
   }
 
-  /// This method is used to convert image urls provided by web api to spotify image URIs 
+  /// This method is used to convert image urls provided by web api to spotify image IDs
   static String imageLinkToURi(String imageLink) {
-  return "spotify:image:"+imageLink.replaceRange(0, imageLink.lastIndexOf("/")+1, "");
-}
-
+    return "spotify:image:" + imageLink.replaceRange(0, imageLink.lastIndexOf("/") + 1, "");
+  }
 }

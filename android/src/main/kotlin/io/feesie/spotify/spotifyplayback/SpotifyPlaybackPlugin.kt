@@ -9,6 +9,7 @@ import com.spotify.protocol.types.Image
 import com.spotify.protocol.types.ImageUri
 import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.types.Track
+import io.feesie.spotify.spotifyplayback.GetImageHandler
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.EventChannel.StreamHandler
@@ -19,6 +20,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import java.io.ByteArrayOutputStream
+import java.util.concurrent.Executors
 import kotlin.concurrent.fixedRateTimer
 
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
@@ -38,6 +40,9 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       // Register the spotify playback status event channel to set listeners from dart
       val eventChannel = EventChannel(registrar.messenger(), "spotify_playback_status")
       eventChannel.setStreamHandler(SpotifyPlaybackPlugin(registrar))
+
+      val executor = Executors.newFixedThreadPool(5)
+
     }
   }
 
@@ -49,7 +54,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     call: MethodCall,
     result: Result
   ) {
-    if (call.method == ("connectSpotify")) {
+      if (call.method == ("connectSpotify")) {
       spotifyConnect(call.argument("clientId"), call.argument("redirectUrl"), result)
     } else if (call.method == "playSpotify") {
       play(call.argument("id"), result)
@@ -78,8 +83,8 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     } else if (call.method == "toggleShuffle") {
       toggleShuffle(result)
     }else if (call.method == "getImage") {
-            getImage(call.argument("uri"), result)
-        }
+      getImage(call.argument("uri"), result)
+    }
   }
 
   /**
@@ -333,7 +338,6 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     }
   }
-
       /**
      * Gets the image as a Uint8List for flutter
      */
@@ -345,15 +349,21 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
             mSpotifyAppRemote!!.imagesApi
                     .getImage(ImageUri(uri), Image.Dimension.SMALL)
                     .setResultCallback { bitmap: Bitmap? ->
-                        val stream = ByteArrayOutputStream()
-                        bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                        val byteArray = stream.toByteArray()
-                        bitmap.recycle()
-                        result.success(byteArray)
+                        GetImageHandler(bitmap,result).handle()
                     }
         } else {
             result.error("getImage", "error", "no SpotifyAppRemote")
         }
+    }
+    /** 
+    This function is used for the above getImage function to compress the image.
+     */
+    private fun compressImage(image:Bitmap?): ByteArray? {
+        val stream = ByteArrayOutputStream()
+        image!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
+        image.recycle()
+        return byteArray
     }
 
   /**
