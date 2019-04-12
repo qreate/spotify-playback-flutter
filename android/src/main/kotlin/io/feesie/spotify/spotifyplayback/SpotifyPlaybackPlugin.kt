@@ -351,16 +351,6 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
             result.error("getImage", "error", "no SpotifyAppRemote")
         }
     }
-    /** 
-    This function is used for the above getImage function to compress the image.
-     */
-    private fun compressImage(image:Bitmap?): ByteArray? {
-        val stream = ByteArrayOutputStream()
-        image!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val byteArray = stream.toByteArray()
-        image.recycle()
-        return byteArray
-    }
 
   /**
    * Get if the spotify sdk is connected, if so return true
