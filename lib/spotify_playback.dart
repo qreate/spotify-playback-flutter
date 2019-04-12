@@ -109,7 +109,7 @@ class SpotifyPlayback {
   }
   /// This method is used to get an image by the provided imageURI and returns a Uint8List(MemoryImage)
   static Future<Uint8List> getImage(String uri) async {
-     final image = await _channel.invokeMethod("getImage", {"uri": "spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c"});
+     final Uint8List image = await _channel.invokeMethod("getImage", {"uri": "spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c"});
       return image;
   }
 
