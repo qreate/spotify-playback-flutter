@@ -1,15 +1,11 @@
 package io.feesie.spotify.playback
 
-import android.graphics.Bitmap
 import android.util.Log
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
-import com.spotify.protocol.types.Image
-import com.spotify.protocol.types.ImageUri
 import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.types.Track
-import io.feesie.spotify.spotifyplayback.GetImageHandler
 import io.feesie.spotify.spotifyplayback.ImageHandler
 import io.feesie.spotify.spotifyplayback.PlaybackControls
 import io.feesie.spotify.spotifyplayback.SeekControls
@@ -22,7 +18,6 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import java.io.ByteArrayOutputStream
 import kotlin.concurrent.fixedRateTimer
 
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
@@ -101,8 +96,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     if (mSpotifyAppRemote != null) {
       mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
           .setEventCallback { playerState: PlayerState? ->
-            val track: Track = playerState!!.track
-            val position = playerState.playbackPosition
+            val position = playerState!!.playbackPosition
             eventSink.success(position)
           }
     } else {
@@ -183,23 +177,6 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     }
   }
-      /**
-     * Gets the image as a Uint8List for flutter
-     */
-    private fun getImage(
-            uri: String?,
-            result: Result
-    ) {
-        if (mSpotifyAppRemote != null && uri != null) {
-            mSpotifyAppRemote!!.imagesApi
-                    .getImage(ImageUri(uri), Image.Dimension.SMALL)
-                    .setResultCallback { bitmap: Bitmap? ->
-                        GetImageHandler(bitmap,result).handle()
-                    }
-        } else {
-            result.error("getImage", "error", "no SpotifyAppRemote")
-        }
-    }
 
   /**
    * Get if the spotify sdk is connected, if so return true
@@ -241,7 +218,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
       mSpotifyAppRemote!!.playerApi.subscribeToPlayerState()
           .setEventCallback { playerState: PlayerState? ->
             val track: Track = playerState!!.track
-            Log.d("MainActivity", track.name + " by " + track.artist.name);
+            Log.d("MainActivity", track.name + " by " + track.artist.name)
 
             val position = playerState.playbackPosition
             events.success(position)
