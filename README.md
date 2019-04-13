@@ -1,6 +1,6 @@
 # spotify_playback
 
-[![CircleCI](https://circleci.com/gh/qreate/spotify-playback-flutter/tree/master.svg?style=svg)](https://circleci.com/gh/qreate/spotify-playback-flutter/tree/master) [![](https://img.shields.io/badge/pub-v0.0.7-brightgreen.svg)](https://pub.dartlang.org/packages/spotify_playback) [![](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/Joran-Dob/spotify-playback-flutter/blob/master/LICENSE.md)
+[![CircleCI](https://circleci.com/gh/qreate/spotify-playback-flutter/tree/master.svg?style=svg)](https://circleci.com/gh/qreate/spotify-playback-flutter/tree/master) [![](https://img.shields.io/badge/pub-v0.0.8-brightgreen.svg)](https://pub.dartlang.org/packages/spotify_playback) [![](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/qreate/spotify-playback-flutter/blob/master/LICENSE.md)
 
 
 Spotify Playback Plugin.
@@ -18,6 +18,8 @@ Spotify Playback Plugin.
 * Play Previous
 * Repeat 
 * Shuffle 
+* Get image
+* Image link to URI
 
 ## Installation
 **`IMPORTANT:` Make sure you have the Spotify app installed and that you are logged in or your test device!**
@@ -72,7 +74,7 @@ After this you can use all the available methods
 | toggleShuffle | Toggle shuffle options    |     ||
 | toggleShuffle | Toggle Repeat options    |     ||
 | getPlaybackPosition | Get's the current tracks playback position       |    ||
-| getImage | Gets a Uint8List encoded image(memoryImage)       |  imageUri  | [![](https://img.shields.io/badge/WARNING-23-orange.svg)](https://github.com/qreate/spotify-playback-flutter/issues/23)
+| getImage | Gets a Uint8List encoded image(memoryImage)       |  imageUri, quality, size  | [![](https://img.shields.io/badge/WARNING-23-orange.svg)](https://github.com/qreate/spotify-playback-flutter/issues/23)
 | imageLinkToURi | Takes an image url and returns image uri(for get image)    |  imageLink  ||
 
 ## Example
@@ -85,12 +87,21 @@ See the [example documentation](example/README.md) for more information.
 ## Function examples
 ### GetImage   
 [![](https://img.shields.io/badge/WARNING-23-orange.svg)](https://github.com/qreate/spotify-playback-flutter/issues/23)
+Get image accepts the following parameters:
+* URI, the spotify image uri - string
+* Quality, the quality the image should be provided in - int 0-100
+* Size, the spotify image size can be one of the following
+  * 144 dimension = THUMBNAIL
+  * 240 dimension = X_SMALL
+  * 360 dimension = SMALL
+  * 480 dimension = MEDIUM
+  * 720 dimension = LARGE
 ```dart
 //You can provide an image uri
-SpotifyPlayback.getImage("spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c");
+SpotifyPlayback.getImage(uri: "spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c", quality: 100, size: 360);
 
 //Or you can provide an url returned webAPI
-SpotifyPlayback.getImage(SpotifyPlayback.imageLinkToURi("https://i.scdn.co/image/3269971d34d3f17f16efc2dfa95e302cc961a36c"));
+SpotifyPlayback.getImage(uri: SpotifyPlayback.imageLinkToURi("https://i.scdn.co/image/3269971d34d3f17f16efc2dfa95e302cc961a36c"), quality: 100, size:360);
 
 //Theese both return a Uint8List encoded image.
 //You can then use the Image.memory() to display the image

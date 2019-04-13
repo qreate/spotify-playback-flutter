@@ -9,6 +9,9 @@ import com.spotify.protocol.types.Image
 import com.spotify.protocol.types.ImageUri
 import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.types.Track
+import io.feesie.spotify.spotifyplayback.ImageHandler
+import io.feesie.spotify.spotifyplayback.PlaybackControls
+import io.feesie.spotify.spotifyplayback.SeekControls
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.EventChannel.EventSink
 import io.flutter.plugin.common.EventChannel.StreamHandler
@@ -49,37 +52,37 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     call: MethodCall,
     result: Result
   ) {
-    if (call.method == ("connectSpotify")) {
-      spotifyConnect(call.argument("clientId"), call.argument("redirectUrl"), result)
-    } else if (call.method == "playSpotify") {
-      play(call.argument("id"), result)
-    } else if (call.method == ("pauseSpotify")) {
-      pause(result)
-    } else if (call.method == ("resumeSpotify")) {
-      resume(result)
-    } else if (call.method == "queue") {
-      queue(call.argument("id"), result)
-    } else if (call.method == ("playbackPositionSpotify")) {
-      getPlaybackPosition(result)
-    } else if (call.method == "isConnected") {
-      connected(result)
-    } else if (call.method == "getCurrentlyPlayingTrack") {
-      getCurrentlyPlayingTrack(result)
-    } else if (call.method == "skipNext") {
-      skipNext(result)
-    } else if (call.method == "skipPrevious") {
-      skipPrevious(result)
-    } else if (call.method == "seekTo") {
-      seekTo(call.argument("time"), result)
-    }else if (call.method == "seekToRelativePosition") {
-       seekToRelativePosition(call.argument("relativeTime"), result)
-    } else if (call.method == "toggleRepeat") {
-      toggleRepeat(result)
-    } else if (call.method == "toggleShuffle") {
-      toggleShuffle(result)
-    }else if (call.method == "getImage") {
-            getImage(call.argument("uri"), result)
-        }
+    val playbackControls = PlaybackControls(mSpotifyAppRemote = mSpotifyAppRemote)
+    val seekControls = SeekControls(mSpotifyAppRemote = mSpotifyAppRemote)
+    val imageHandler = ImageHandler(mSpotifyAppRemote = mSpotifyAppRemote)
+    when {
+      call.method == "connectSpotify" -> spotifyConnect(
+          call.argument("clientId"), call.argument("redirectUrl"), result
+      )
+      call.method == "playSpotify" -> playbackControls.play(
+          spotifyUri = call.argument("id"), result = result
+      )
+      call.method == "pauseSpotify" -> playbackControls.pause(result = result)
+      call.method == "resumeSpotify" -> playbackControls.resume(result = result)
+      call.method == "queue" -> playbackControls.queue(
+          spotifyUri = call.argument("id"), result = result
+      )
+      call.method == "playbackPositionSpotify" -> getPlaybackPosition(result)
+      call.method == "isConnected" -> connected(result)
+      call.method == "getCurrentlyPlayingTrack" -> getCurrentlyPlayingTrack(result = result)
+      call.method == "skipNext" -> playbackControls.skipNext(result = result)
+      call.method == "skipPrevious" -> playbackControls.skipPrevious(result = result)
+      call.method == "seekTo" -> seekControls.seekTo(time = call.argument("time"), result = result)
+      call.method == "seekToRelativePosition" -> seekControls.seekToRelativePosition(
+          relativeTime = call.argument("relativeTime"), result = result
+      )
+      call.method == "toggleRepeat" -> playbackControls.toggleRepeat(result = result)
+      call.method == "toggleShuffle" -> playbackControls.toggleShuffle(result = result)
+      call.method == "getImage" -> imageHandler.getImage(
+          uri = call.argument("uri"), result = result, quality = call.argument("quality"),
+          size = call.argument("size")
+      )
+    }
   }
 
   /**
@@ -168,160 +171,6 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
   }
 
   /**
-   * Play an Spotify track by passing the Spotify track/playlist/album id
-   * If the Spotify play call is successful return true
-   */
-  private fun play(
-    spotifyUri: String?,
-    result: Result
-  ) {
-    if (mSpotifyAppRemote != null && spotifyUri != null) {
-      mSpotifyAppRemote!!.playerApi.play(spotifyUri)
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("play", "error", "no SpotifyAppRemote $spotifyUri")
-    }
-  }
-
-  /**
-   * Pauses the currently playing spotify track, if successful return true
-   */
-  private fun pause(
-    result: Result
-  ) {
-    if (mSpotifyAppRemote != null) {
-      mSpotifyAppRemote!!.playerApi.pause()
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("pause", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
-   * Resumes the currently paused spotify track, if successful return true
-   */
-  private fun resume(result: Result) {
-    if (mSpotifyAppRemote != null) {
-      mSpotifyAppRemote!!.playerApi.resume()
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("resume", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
-   * Add songs / playlist / albums to the queue
-   */
-  private fun queue(
-    spotifyUri: String?,
-    result: Result
-  ) {
-    if (mSpotifyAppRemote != null) {
-      mSpotifyAppRemote!!.playerApi.queue(spotifyUri)
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("paqueueuse", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
-   * Plays the next song in the list
-   */
-  private fun skipNext(result: Result) {
-    if (mSpotifyAppRemote != null) {
-      mSpotifyAppRemote!!.playerApi.skipNext()
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("next", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
-   * Plays the next song in the list
-   */
-  private fun skipPrevious(result: Result) {
-    if (mSpotifyAppRemote != null) {
-      mSpotifyAppRemote!!.playerApi.skipPrevious()
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("prev", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
-   * Toggles repeat modes
-   */
-  private fun toggleRepeat(result: Result) {
-    if (mSpotifyAppRemote != null) {
-      mSpotifyAppRemote!!.playerApi.toggleRepeat()
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("repeat", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
-   * Toggles shuffle modes
-   */
-  private fun toggleShuffle(result: Result) {
-    if (mSpotifyAppRemote != null) {
-      mSpotifyAppRemote!!.playerApi.toggleShuffle()
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("shuffle", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
-   * Seek To a specified time in the song playing
-   */
-  private fun seekTo(
-    time: String?,
-    result: Result
-  ) {
-    if (mSpotifyAppRemote != null && time != null) {
-      mSpotifyAppRemote!!.playerApi.seekTo(time.toLong())
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("seekTo", "error", "no SpotifyAppRemote")
-    }
-  }
-    /**
-     * Seek To relative position
-     */
-    private fun seekToRelativePosition(
-    relativeTime: String?,
-    result: Result
-  ) {
-    if (mSpotifyAppRemote != null && relativeTime != null) {
-      mSpotifyAppRemote!!.playerApi.seekToRelativePosition(relativeTime.toLong())
-          .setResultCallback {
-            result.success(true)
-          }
-    } else {
-      result.error("seekTo", "error", "no SpotifyAppRemote")
-    }
-  }
-
-  /**
    * Get the currently playing tracks position, if successful returns the position
    */
   private fun getPlaybackPosition(result: Result) {
@@ -333,28 +182,6 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     }
   }
-
-      /**
-     * Gets the image as a Uint8List for flutter
-     */
-    private fun getImage(
-            uri: String?,
-            result: Result
-    ) {
-        if (mSpotifyAppRemote != null && uri != null) {
-            mSpotifyAppRemote!!.imagesApi
-                    .getImage(ImageUri(uri), Image.Dimension.SMALL)
-                    .setResultCallback { bitmap: Bitmap? ->
-                        val stream = ByteArrayOutputStream()
-                        bitmap!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
-                        val byteArray = stream.toByteArray()
-                        bitmap.recycle()
-                        result.success(byteArray)
-                    }
-        } else {
-            result.error("getImage", "error", "no SpotifyAppRemote")
-        }
-    }
 
   /**
    * Get if the spotify sdk is connected, if so return true
