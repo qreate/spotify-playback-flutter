@@ -118,9 +118,8 @@ class SpotifyPlayback {
     return success;
   }
 
-  /// This method is used to convert image urls provided by web api to spotify image URIs
+  /// This method is used to convert image urls provided by web api to spotify image IDs
   static String imageLinkToURi(String imageLink) {
-    return "spotify:image:" +
-        imageLink.replaceRange(0, imageLink.lastIndexOf("/") + 1, "");
+    return "spotify:image:" + imageLink.replaceRange(0, imageLink.lastIndexOf("/") + 1, "");
   }
 }

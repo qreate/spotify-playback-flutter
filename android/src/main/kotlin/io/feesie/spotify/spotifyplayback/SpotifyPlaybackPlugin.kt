@@ -9,6 +9,7 @@ import com.spotify.protocol.types.Image
 import com.spotify.protocol.types.ImageUri
 import com.spotify.protocol.types.PlayerState
 import com.spotify.protocol.types.Track
+import io.feesie.spotify.spotifyplayback.GetImageHandler
 import io.feesie.spotify.spotifyplayback.ImageHandler
 import io.feesie.spotify.spotifyplayback.PlaybackControls
 import io.feesie.spotify.spotifyplayback.SeekControls
@@ -182,6 +183,23 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     }
   }
+      /**
+     * Gets the image as a Uint8List for flutter
+     */
+    private fun getImage(
+            uri: String?,
+            result: Result
+    ) {
+        if (mSpotifyAppRemote != null && uri != null) {
+            mSpotifyAppRemote!!.imagesApi
+                    .getImage(ImageUri(uri), Image.Dimension.SMALL)
+                    .setResultCallback { bitmap: Bitmap? ->
+                        GetImageHandler(bitmap,result).handle()
+                    }
+        } else {
+            result.error("getImage", "error", "no SpotifyAppRemote")
+        }
+    }
 
   /**
    * Get if the spotify sdk is connected, if so return true
