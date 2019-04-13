@@ -108,7 +108,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-
   /// Seek to a a defined time relative to the current time
   Future<void> seekToRelativePosition() async {
     try {
@@ -216,10 +215,11 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-    /// Get the image by provided uri
+  /// Get the image by provided uri
   Future<void> getImage(String uri) async {
     try {
-      await SpotifyPlayback.getImage(uri).then((imageReceived) {
+      await SpotifyPlayback.getImage(uri: uri, quality: 100, size: 360).then(
+          (imageReceived) {
         setState(() {
           image = imageReceived;
         });
@@ -297,10 +297,17 @@ class _MyAppState extends State<MyApp> {
                     child: Text("Seek Relative(+5s)"),
                   ),
                   RaisedButton(
-                    onPressed: () => getImage(SpotifyPlayback.imageLinkToURi("https://i.scdn.co/image/3269971d34d3f17f16efc2dfa95e302cc961a36c")),
-                    child: Text("Get image")),
-              
-                  (image != null) ? Image.memory(image,height: 100,) : Text("Image Placeholder")
+                      onPressed: () => getImage(
+                            SpotifyPlayback.imageLinkToURi(
+                                "https://i.scdn.co/image/3269971d34d3f17f16efc2dfa95e302cc961a36c"),
+                          ),
+                      child: Text("Get image")),
+                  (image != null)
+                      ? Image.memory(
+                          image,
+                          height: 100,
+                        )
+                      : Text("Image Placeholder")
                 ],
               ),
             ]),

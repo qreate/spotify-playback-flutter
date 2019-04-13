@@ -1,3 +1,7 @@
+## 0.0.8
+* Added get image and image link to uri functionality
+* Refactored code
+
 ## 0.0.7
 * Fixed kotlin compatibility issue see [#15](https://github.com/Joran-Dob/spotify-playback-flutter/issues/15#issue-429463572)
 * Added seek to relative position 

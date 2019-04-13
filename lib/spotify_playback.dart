@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
+import 'package:meta/meta.dart';
 
 class SpotifyPlayback {
   /// Spotify playback method channel
@@ -102,15 +103,19 @@ class SpotifyPlayback {
         await _channel.invokeMethod("seekTo", {"time": time.toString()});
     return success;
   }
-    static Future<bool> seekToRelativePosition(int relativeTime) async {
-    final bool success =
-        await _channel.invokeMethod("seekToRelativePosition", {"relativeTime": relativeTime.toString()});
+
+  static Future<bool> seekToRelativePosition(int relativeTime) async {
+    final bool success = await _channel.invokeMethod(
+        "seekToRelativePosition", {"relativeTime": relativeTime.toString()});
     return success;
   }
+
   /// This method is used to get an image by the provided imageURI and returns a Uint8List(MemoryImage)
-  static Future<Uint8List> getImage(String uri) async {
-     final Uint8List image = await _channel.invokeMethod("getImage", {"uri": "spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c"});
-      return image;
+  static Future<Uint8List> getImage(
+      {@required String uri, int quality, int size}) async {
+    final Uint8List success = await _channel.invokeMethod(
+        "getImage", {"uri": uri, "quality": quality, "size": size});
+    return success;
   }
 
   /// This method is used to convert image urls provided by web api to spotify image IDs
