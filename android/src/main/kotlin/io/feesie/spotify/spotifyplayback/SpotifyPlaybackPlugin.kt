@@ -1,5 +1,9 @@
 package io.feesie.spotify.playback
 
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.os.Parcel
 import android.util.Log
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
@@ -19,6 +23,13 @@ import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import kotlin.concurrent.fixedRateTimer
+
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationHandler
+import com.spotify.sdk.android.authentication.AuthenticationRequest;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
+
+
 
 class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : MethodCallHandler,
     StreamHandler {
@@ -78,8 +89,33 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           uri = call.argument("uri"), result = result, quality = call.argument("quality"),
           size = call.argument("size")
       )
+      call.method == "getAuthToken" -> getAuthToken(
+              clientId = call.argument("clientId"),
+              redirectUrl = call.argument("redirectUrl"),
+              result = result)
     }
   }
+
+
+    private fun getAuthToken(clientId: String?,
+                     redirectUrl: String?,
+                     result: Result){
+
+
+AuthenticationClient.openLoginActivity(
+        registrar.activity(), 1337,
+        AuthenticationRequest.Builder(clientId,AuthenticationResponse.Type.TOKEN,redirectUrl)
+        .setScopes(arrayOf("user-read-birthdate")).build());
+
+    registrar.addActivityResultListener { requestCode, resultCode, intent ->
+
+        if (requestCode == 1337){
+            result.success(AuthenticationClient.getResponse(resultCode,intent).accessToken)
+        }
+        true
+    } }
+
+
 
   /**
    * The onlisten for the eventChannel is still in active development
@@ -177,6 +213,7 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
           }
     }
   }
+
 
   /**
    * Get if the spotify sdk is connected, if so return true

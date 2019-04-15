@@ -231,6 +231,17 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+    Future<void> getAuthToken() async {
+    try {
+      SpotifyPlayback.getAuthToken(clientId: Credentials.clientId,redirectUrl: Credentials.redirectUrl).then((authToken){
+        print(authToken);
+      });
+
+    } on PlatformException {
+      print('Failed to play.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -302,6 +313,12 @@ class _MyAppState extends State<MyApp> {
                                 "https://i.scdn.co/image/3269971d34d3f17f16efc2dfa95e302cc961a36c"),
                           ),
                       child: Text("Get image")),
+
+                  RaisedButton(
+                    onPressed: () => getAuthToken(),
+                    child: Text("Auth token"),
+                  ),
+
                   (image != null)
                       ? Image.memory(
                           image,

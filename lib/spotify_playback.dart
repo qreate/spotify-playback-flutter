@@ -122,4 +122,14 @@ class SpotifyPlayback {
   static String imageLinkToURi(String imageLink) {
     return "spotify:image:" + imageLink.replaceRange(0, imageLink.lastIndexOf("/") + 1, "");
   }
+
+  /// This method is used to get an image by the provided imageURI and returns a Uint8List(MemoryImage)
+  static Future<String> getAuthToken(
+      {@required String clientId, @required String redirectUrl}) async {
+    final String token = await _channel.invokeMethod(
+        "getAuthToken", {"clientId": clientId, "redirectUrl": redirectUrl});
+    return token;
+  }
+
+
 }
