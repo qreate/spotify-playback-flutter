@@ -96,24 +96,26 @@ class SpotifyPlaybackPlugin(private var registrar: PluginRegistry.Registrar) : M
     }
   }
 
-
+    //THIS SHOULD ONLY BE CALLED ONCE
     private fun getAuthToken(clientId: String?,
                      redirectUrl: String?,
                      result: Result){
 
-
-AuthenticationClient.openLoginActivity(
-        registrar.activity(), 1337,
-        AuthenticationRequest.Builder(clientId,AuthenticationResponse.Type.TOKEN,redirectUrl)
-        .setScopes(arrayOf("user-read-birthdate")).build());
-
+try {
+    AuthenticationClient.openLoginActivity(
+            registrar.activity(), 1337,
+            AuthenticationRequest.Builder(clientId,AuthenticationResponse.Type.TOKEN,redirectUrl)
+                    .setScopes(arrayOf("user-modify-playback-state")).build())
+}catch (err:Throwable){
+    Log.v("getAuthTOkenError",err.message)
+}
     registrar.addActivityResultListener { requestCode, resultCode, intent ->
-
         if (requestCode == 1337){
             result.success(AuthenticationClient.getResponse(resultCode,intent).accessToken)
         }
         true
-    } }
+    }
+    }
 
 
 
