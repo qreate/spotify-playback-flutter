@@ -91,11 +91,11 @@ Get image accepts the following parameters:
 * URI, the spotify image uri - string
 * Quality, the quality the image should be provided in - int 0-100
 * Size, the spotify image size can be one of the following
-  * 144 dimension = THUMBNAIL
-  * 240 dimension = X_SMALL
-  * 360 dimension = SMALL
-  * 480 dimension = MEDIUM
-  * 720 dimension = LARGE
+  * ImageDimension.THUMBNAIL = 144px
+  * ImageDimension.X_SMALL = 240px
+  * ImageDimension.SMALL = 360px
+  * ImageDimension.MEDIUM = 480px
+  * ImageDimension.LARGE = 720px
 ```dart
 //You can provide an image uri
 SpotifyPlayback.getImage(uri: "spotify:image:3269971d34d3f17f16efc2dfa95e302cc961a36c", quality: 100, size: 360);
