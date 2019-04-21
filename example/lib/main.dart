@@ -218,7 +218,7 @@ class _MyAppState extends State<MyApp> {
   /// Get the image by provided uri
   Future<void> getImage(String uri) async {
     try {
-      await SpotifyPlayback.getImage(uri: uri, quality: 100, size: 360).then(
+      await SpotifyPlayback.getImage(uri: uri, quality: 100, size: ImageDimension.LARGE).then(
           (imageReceived) {
         setState(() {
           image = imageReceived;
