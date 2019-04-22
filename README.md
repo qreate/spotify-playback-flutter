@@ -76,6 +76,7 @@ After this you can use all the available methods
 | getPlaybackPosition | Get's the current tracks playback position       |    ||
 | getImage | Gets a Uint8List encoded image(memoryImage)       |  imageUri, quality, size  | [![](https://img.shields.io/badge/WARNING-23-orange.svg)](https://github.com/qreate/spotify-playback-flutter/issues/23)
 | imageLinkToURi | Takes an image url and returns image uri(for get image)    |  imageLink  ||
+| getAuthToken | Gets the authToken by using the redirect url, client id       |  clientId, redirectUrl | [![](https://img.shields.io/badge/WARNING-WIP-orange.svg)](https://github.com/qreate/spotify-playback-flutter/pull/28)
 
 ## Example
 
