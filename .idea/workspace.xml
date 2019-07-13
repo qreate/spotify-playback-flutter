@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="adding" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="flutter" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -82,7 +82,8 @@
           <entry key="project.closed" value="7" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.14" value="2" />
+          <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.3" value="3" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.5" value="2" />
@@ -93,41 +94,41 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="LICENSE" value="1" />
-          <entry key="dart" value="14" />
+          <entry key="dart" value="17" />
           <entry key="gradle" value="4" />
           <entry key="kt" value="1" />
-          <entry key="md" value="11" />
-          <entry key="yaml" value="8" />
+          <entry key="md" value="15" />
+          <entry key="yaml" value="10" />
           <entry key="yml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Dart" value="14" />
+          <entry key="Dart" value="17" />
           <entry key="Groovy" value="4" />
           <entry key="Kotlin" value="1" />
-          <entry key="Markdown" value="11" />
+          <entry key="Markdown" value="15" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="YAML" value="10" />
+          <entry key="YAML" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="2647" />
+          <entry key="dart" value="2764" />
           <entry key="gradle" value="6" />
           <entry key="kt" value="225" />
-          <entry key="md" value="1536" />
-          <entry key="yaml" value="52" />
+          <entry key="md" value="1761" />
+          <entry key="yaml" value="54" />
           <entry key="yml" value="36" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="2647" />
+          <entry key="Dart" value="2764" />
           <entry key="Groovy" value="6" />
           <entry key="Kotlin" value="225" />
-          <entry key="Markdown" value="1536" />
-          <entry key="YAML" value="88" />
+          <entry key="Markdown" value="1761" />
+          <entry key="YAML" value="90" />
         </counts>
       </usages-collector>
     </session>
@@ -192,7 +193,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+        <entry file="file://$PROJECT_DIR$/lib/spotify_playback.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
               <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
@@ -250,15 +251,16 @@
         <option value="$PROJECT_DIR$/android/build.gradle" />
         <option value="$PROJECT_DIR$/.cirrus.yml" />
         <option value="$PROJECT_DIR$/.circleci/config.yml" />
+        <option value="$PROJECT_DIR$/example/lib/credentials.dart" />
         <option value="$PROJECT_DIR$/lib/spotify_playback.dart" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
-        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1873" />
     <option name="height" value="1057" />
@@ -415,7 +417,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.17945383" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6736021" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

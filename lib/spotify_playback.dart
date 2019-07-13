@@ -1,6 +1,7 @@
 import 'dart:async';
-
+import 'dart:typed_data';
 import 'package:flutter/services.dart';
+import 'package:meta/meta.dart';
 
 class SpotifyPlayback {
   /// Spotify playback method channel
@@ -102,9 +103,44 @@ class SpotifyPlayback {
         await _channel.invokeMethod("seekTo", {"time": time.toString()});
     return success;
   }
-    static Future<bool> seekToRelativePosition(int relativeTime) async {
-    final bool success =
-        await _channel.invokeMethod("seekToRelativePosition", {"relativeTime": relativeTime.toString()});
+
+  static Future<bool> seekToRelativePosition(int relativeTime) async {
+    final bool success = await _channel.invokeMethod(
+        "seekToRelativePosition", {"relativeTime": relativeTime.toString()});
     return success;
   }
+
+  /// This method is used to get an image by the provided imageURI and returns a Uint8List(MemoryImage)
+  static Future<Uint8List> getImage(
+      {@required String uri, int quality, ImageDimension size}) async {
+    int sizeValue = 360;
+    if (size == ImageDimension.THUMBNAIL) {sizeValue = 144;}
+    else if(size == ImageDimension.X_SMALL){sizeValue = 240;}
+    else if(size == ImageDimension.SMALL){sizeValue = 360;}
+    else if(size == ImageDimension.MEDIUM){sizeValue = 480;}
+    else if(size == ImageDimension.LARGE){sizeValue = 720;}
+
+    final Uint8List success = await _channel.invokeMethod(
+        "getImage", {"uri": uri, "quality": quality, "size": sizeValue});
+    return success;
+  }
+
+  /// This method is used to convert image urls provided by web api to spotify image IDs
+  static String imageLinkToURi(String imageLink) {
+    return "spotify:image:" + imageLink.replaceRange(0, imageLink.lastIndexOf("/") + 1, "");
+  }
+
+  /// This method is used to get the authToken
+  static Future<String> getAuthToken(
+      {@required String clientId, @required String redirectUrl}) async {
+    final String token = await _channel.invokeMethod(
+        "getAuthToken", {"clientId": clientId, "redirectUrl": redirectUrl});
+    return token;
+  }
+
+
+}
+
+enum ImageDimension{
+  THUMBNAIL,X_SMALL,SMALL,MEDIUM,LARGE
 }
