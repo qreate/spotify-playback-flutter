@@ -1,4 +1,4 @@
-package io.feesie.spotify.playback
+package io.feesie.spotify.spotifyplayback
 
 import android.content.Intent
 import android.content.IntentFilter
