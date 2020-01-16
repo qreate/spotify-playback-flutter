@@ -15,5 +15,5 @@ dependencies:
 # The following section is specific to Flutter.
 flutter:
   plugin:
-    androidPackage: io.feesie.spotify.playback
+    androidPackage: io.feesie.spotify.spotifyplayback
     pluginClass: SpotifyPlaybackPlugin
