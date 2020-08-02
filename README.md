@@ -1,3 +1,5 @@
+This project is not being actively maintained please use: https://pub.dev/packages/spotify_sdk
+
 # spotify_playback
 
 [![CircleCI](https://circleci.com/gh/qreate/spotify-playback-flutter/tree/master.svg?style=svg)](https://circleci.com/gh/qreate/spotify-playback-flutter/tree/master) [![](https://img.shields.io/badge/pub-v0.0.8-brightgreen.svg)](https://pub.dartlang.org/packages/spotify_playback) [![](https://img.shields.io/badge/licence-MIT-blue.svg)](https://github.com/qreate/spotify-playback-flutter/blob/master/LICENSE.md)
